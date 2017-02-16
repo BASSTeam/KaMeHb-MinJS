@@ -9,7 +9,7 @@ class debugConsole{
 	public function turnOff(){ $this -> state = false;}
 	public function setReverseState(){ $this -> state = !($this -> state);}
 	public function setPOST($json){ $_POST = json_decode($json);}
-	public function setGET($json){ $_POST = json_decode($json);}
+	public function setGET($json){ $_GET = json_decode($json);}
 	public function message($message){ $this -> addElement("div", $message, NULL, "message");}
 	public function getHeader(){
 		if ($this -> state){
