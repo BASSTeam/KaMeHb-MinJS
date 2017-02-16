@@ -3,7 +3,7 @@ class debugConsole{
 	private $state = true;
 	private $out = "";
 	private function addElement($tagname, $text = "", $id = NULL, $name = NULL, $js = NULL, $css = NULL){
-		$this -> $out += "<$tagname" . ($id !== NULL ? " id=\"$id\"" : "") . ($name !== NULL ? " name=\"$name\"" : "") . ">$text</$tagname>";
+		$this -> out += "<$tagname" . ($id !== NULL ? " id=\"$id\"" : "") . ($name !== NULL ? " name=\"$name\"" : "") . ">$text</$tagname>";
 	}
 	public function turnOn(){ $this -> state = true;}
 	public function turnOff(){ $this -> state = false;}
