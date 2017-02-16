@@ -19,8 +19,8 @@ class debugConsole{
 	}
 	public function construct(){
 		if ($state){
-			return "<div id=\"debugConsole\" style=\"\">$out</div>"
+			return "<div id=\"debugConsole\" style=\"\">$out</div>";
 		}
 	}
 }
-?> 
+?>
