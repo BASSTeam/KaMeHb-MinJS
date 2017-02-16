@@ -13,7 +13,7 @@ class debugConsole{
 	public function message($message){ $this -> addElement("div", $message, NULL, "message");}
 	public function getHeader(){
 		if ($this -> state){
-			return "<link rel=\"stylesheet\" type=\"text/css\" href=\"\/\/fonts.googleapis.com/css?family=Ubuntu\" />";
+			return "<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Ubuntu\" />";
 		}
 	}
 	public function getStyleSheet(){
