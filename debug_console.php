@@ -11,6 +11,16 @@ class debugConsole{
 	public function setPOST($json){ $_POST = json_decode($json);}
 	public function setGET($json){ $_POST = json_decode($json);}
 	public function message($message){ $this -> addElement("div", $message, NULL, "message");}
+	public function getHeader(){
+		if ($this -> state){
+			return "<link rel=\"stylesheet\" type=\"text/css\" href=\"\/\/fonts.googleapis.com/css?family=Ubuntu\" />";
+		}
+	}
+	public function getStyleSheet(){
+		if ($this -> state){
+			return "<style>#debugConsole{position:absolute;bottom:0;background:#293134;color:#E0E2E4;left:0;width:100%;}</style>";
+		}
+	}
 	public function getArgs(){
 		if ($this -> state){
 			$this -> addElement("div", json_encode($_POST), NULL, "POST");
@@ -20,7 +30,7 @@ class debugConsole{
 	public function construct(){
 		if ($this -> state){
 			$out = $this -> out;
-			return "<div id=\"debugConsole\" style=\"\">$out</div>";
+			echo "<div id=\"debugConsole\">$out</div>";
 		}
 	}
 }
