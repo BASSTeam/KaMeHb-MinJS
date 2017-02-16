@@ -1,8 +1,4 @@
 <?php
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-//require('https://raw.githubusercontent.com/BASSTeam/KaMeHb-MinJS/master/debug_console.php');
 class debugConsole{
 	private $state = true;
 	private $out = "";
@@ -28,7 +24,4 @@ class debugConsole{
 		}
 	}
 }
-$debugConsole = new debugConsole();
-$debugConsole -> getArgs();
-echo $debugConsole -> construct();
 ?> 
