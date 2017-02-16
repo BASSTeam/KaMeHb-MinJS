@@ -18,7 +18,7 @@ class debugConsole{
 	}
 	public function getStyleSheet(){
 		if ($this -> state){
-			return "<style>#debugConsole{position:absolute;bottom:0;background:#293134;color:#E0E2E4;left:0;width:100%;font-family:Ubuntu;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:18px;}#debugConsole [name=\"POST\"]:before{content:\"POST: \"}#debugConsole [name=\"GET\"]:before{content:\"GET: \"}</style>";
+			return "<style>#debugConsole{position:absolute;bottom:0;background:#293134;color:#67A9B1;left:0;width:100%;font-family:Ubuntu;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:18px;}#debugConsole [name=\"POST\"]:before{content:\"POST: \"}#debugConsole [name=\"GET\"]:before{content:\"GET: \"}</style>";
 		}
 	}
 	public function getArgs(){
