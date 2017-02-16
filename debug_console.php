@@ -1,7 +1,7 @@
 <?php
 class debugConsole{
 	private $state = true;
-	private $out = true;
+	private $out = "";
 	private function addElement($tagname, $text, $id, $name, $js, $css){
 		$out += "<$tagname" . ($id !== NULL ? " id=\"$id\"" : "") . ($name !== NULL ? " name=\"$name\"" : "") . ">$text</$tagname>";
 	}
