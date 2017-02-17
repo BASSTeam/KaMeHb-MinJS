@@ -5,7 +5,7 @@ class debugConsole{
 	private $style = '';
 	private $mysqlStyleAdded = false;
 	private $mysqli;
-	private function json($json){ (json_encode($json) !== '[]' ? json_encode($json) : 'NUA' . 'LL');}
+	private function json($json){ (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
 	private function addElement($tagname, $text = '', $id = NULL, $name = NULL, $class = NULL, $js = NULL, $css = NULL){
 		$this -> out = $this -> out . "<$tagname" . ($id !== NULL ? " id=\"$id\"" : '') . ($name !== NULL ? " name=\"$name\"" : '') . ($class !== NULL ? " class=\"$class\"" : '') . ">$text</$tagname>";
 	}
