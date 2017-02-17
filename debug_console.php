@@ -17,7 +17,7 @@ class debugConsole{
 	public function message($message){ $this -> addElement('div', $message, NULL, NULL, 'message');}
 	public function addStyle($selector, $style, $pseudo = NULL){
 		if ($this -> state){
-			$this -> style = $this -> style . $selector . ($pseudo !== NULL ? ":$pseudo" : '') . "\{$style\}";
+			$this -> style = $this -> style . $selector . ($pseudo !== NULL ? ":$pseudo" : '') . "{$style}";
 		}
 	}
 	public function getHeader(){
