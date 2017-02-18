@@ -22,15 +22,21 @@ class debugConsole{
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
 				if ($value != '' and $value !== false and $value !== NULL){
-					$params = $params . " $key=\"$value\"";
+					$params = $params . $this -> normalize_str(" $key=\"$value\"");
 				} else {
-					$params = $params . " $key";
+					$params = $params . $this -> normalize_str(" $key");
 				}
 			}
 		}
 		echo json_encode($obj) . "\n";
 		echo "{\"tagname\":\"$tagname\",\"params\":\"$params\",\"inner_text\":\"$inner_text\"}\n";
-		$this -> out = $this -> out . "<$tagname$params" . (isset($obj -> tagtype) and $obj -> tagtype == 1 ? " value=\"$inner_text\">" : (isset($obj -> tagtype) and $obj -> tagtype == 2 ? " value=\"$inner_text\"></$tagname>" : ">$inner_text</$tagname>"));
+		if (isset($obj -> tagtype) and $obj -> tagtype == 1){
+			$this -> out = $this -> out . "<$tagname$params value=\"$inner_text\">";
+		} elseif (isset($obj -> tagtype) and $obj -> tagtype == 2){
+				"<$tagname$params value=\"$inner_text\"></$tagname>";
+		} else {
+				"<$tagname$params>$inner_text</$tagname>";
+		}
 	}
 	public function turnOn(){ $this -> state = true;}
 	public function turnOff(){ $this -> state = false;}
