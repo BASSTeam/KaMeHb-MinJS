@@ -13,6 +13,7 @@ class debugConsole{
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
 				$params = $params . ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
+				echo "Added $key => $value";
 			}
 		}
 		echo json_encode($obj) . "\n";
