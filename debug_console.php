@@ -5,7 +5,7 @@ class debugConsole{
 	private $style = '';
 	private $mysqlStyleAdded = false;
 	private $mysqli;
-	private function json($json){ (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
+	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
 	private function addElement($obj){
 		$tagname = (isset($obj -> tagname) and $obj -> tagname !== false ? $obj -> tagname : 'div');
 		$inner_text = (isset($obj -> inner_text) and $obj -> inner_text !== false ? $obj -> inner_text : '');
@@ -15,7 +15,7 @@ class debugConsole{
 				$params = $params . ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
 			}
 		}
-		echo json_encode($obj) .'\n';
+		echo json_encode($obj) . "\n";
 		echo "{\"tagname\":\"$tagname\",\"params\":\"$params\",\"inner_text\":\"$inner_text\"}\n";
 		$this -> out = $this -> out . "<$tagname$params" . (isset($obj -> tagtype) and $obj -> tagtype == 1 ? " value=\"$inner_text\">" : (isset($obj -> tagtype) and $obj -> tagtype == 2 ? " value=\"$inner_text\"></$tagname>" : ">$inner_text</$tagname>"));
 	}
