@@ -33,9 +33,9 @@ class debugConsole{
 		if (isset($obj -> tagtype) and $obj -> tagtype == 1){
 			$this -> out = $this -> out . "<$tagname$params value=\"$inner_text\">";
 		} elseif (isset($obj -> tagtype) and $obj -> tagtype == 2){
-				"<$tagname$params value=\"$inner_text\"></$tagname>";
+			$this -> out = $this -> out . "<$tagname$params value=\"$inner_text\"></$tagname>";
 		} else {
-				"<$tagname$params>$inner_text</$tagname>";
+			$this -> out = $this -> out . "<$tagname$params>$inner_text</$tagname>";
 		}
 	}
 	public function turnOn(){ $this -> state = true;}
