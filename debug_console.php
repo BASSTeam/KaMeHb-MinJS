@@ -116,11 +116,13 @@ class debugConsole{
 	}
 	public function construct(){
 		if ($this -> state){
+			$currentConsoleColor = $this -> currentConsoleColor;
+			$currentConsoleBackground = $this -> currentConsoleBackground;
 			$out = $this -> out;
 			$codename = $this -> codename;
 			$pathInfo = $_SERVER['PHP_SELF'];
 			$server = $_SERVER['SERVER_NAME'];
-			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">$out<div><div style=\"display: inline-block;\">$codename@$server: $pathInfo/</div><div style=\"display: inline-block;height: 18px;\"><form method=\"POST\"><input name=\"command\" value=\"\"><input value=\"OK\" type=\"submit\"></form></div></div></div></div>";
+			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">$out<table style=\"width:100%;color:inherit;font:inherit;font-size:inherit;\"><tbody><tr><td style=\"width:0;\">$codename@$server:$pathInfo?</td><td style=\"overflow:hidden;\"><div style=\"height: 18px;\"><form method=\"POST\" style=\"width:100%;\"><input name=\"command\" value="" style=\"width:100%;color:inherit;background-color:inherit;border:0;\"><input value=\"OK\" style=\"display:none;\" type=\"submit\"></form></div></td></tr></tbody></table></div></div>";
 		}
 	}
 	private function addMySQLStyle(){
