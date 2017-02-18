@@ -12,7 +12,7 @@ class debugConsole{
 		$params = '';
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
-				$params .= ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
+				$params = $params . ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
 			}
 		}
 		echo json_encode($obj) .'\n';
