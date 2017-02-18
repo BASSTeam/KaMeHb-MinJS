@@ -118,7 +118,7 @@ class debugConsole{
 		if ($this -> state){
 			$out = $this -> out;
 			$codename = $this -> codename;
-			$pathInfo = $_SERVER['PATH_INFO'];
+			$pathInfo = $_SERVER['PHP_SELF'];
 			$server = $_SERVER['SERVER_NAME'];
 			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">$out<div><div style=\"display: inline-block;\">$codename@$server: $pathInfo/</div><div style=\"display: inline-block;height: 18px;\"><form method=\"POST\"><input name=\"command\" value=\"\"><input value=\"OK\" type=\"submit\"></form></div></div></div></div>";
 		}
