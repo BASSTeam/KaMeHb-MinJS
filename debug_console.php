@@ -16,11 +16,11 @@ class debugConsole{
 	private $mysqli;
 	private $currentConsoleColor = '#67A9B1';
 	private $currentConsoleBackground = '#293134';
-	private $currentConsoleWarningBackground = '#3F3D0B';
-	private $currentConsoleErrorBackground = '3F0B0B';
+	private $currentConsoleWarningBackground = '#424017';
+	private $currentConsoleErrorBackground = '#512828';
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NULL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
-	private function addElement($obj){
+	private function _addElement($obj){
 		if (isset($obj -> tagname) and $obj -> tagname !== false){
 			$tagname = $obj -> tagname;
 		} else {
@@ -42,12 +42,18 @@ class debugConsole{
 			}
 		}
 		if (isset($obj -> tagtype) and $obj -> tagtype == 1){
-			$this -> out = $this -> out . "<$tagname$params value=\"$inner_text\">";
+			return "<$tagname$params value=\"$inner_text\">";
 		} elseif (isset($obj -> tagtype) and $obj -> tagtype == 2){
-			$this -> out = $this -> out . "<$tagname$params value=\"$inner_text\"></$tagname>";
+			return "<$tagname$params value=\"$inner_text\"></$tagname>";
 		} else {
-			$this -> out = $this -> out . "<$tagname$params>$inner_text</$tagname>";
+			return "<$tagname$params>$inner_text</$tagname>";
 		}
+	}
+	private function addElement($obj){
+		$this -> out = $this -> out . _addElement($obj);
+	}
+	private function addElementToTop($obj){
+		$this -> out = _addElement($obj) . $this -> out;
 	}
 	public function turnOn(){ $this -> state = true;}
 	public function turnOff(){ $this -> state = false;}
@@ -86,10 +92,10 @@ class debugConsole{
 	}
 	public function getArgs(){
 		if ($this -> state){
-			$this -> addElement(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_POST)) . '","name":"POST","class":"message"}'));
 			$this -> addStyle('#KaMeHb_debugConsole [name="POST"]', 'content:"POST: "','before');
-			$this -> addElement(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_GET)) . '","name":"GET","class":"message"}'));
 			$this -> addStyle('#KaMeHb_debugConsole [name="GET"]', 'content:"GET: "','before');
+			$this -> addElementToTop(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_GET)) . '","name":"GET","class":"message"}'));
+			$this -> addElementToTop(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_POST)) . '","name":"POST","class":"message"}'));
 		}
 	}
 	public function construct(){
