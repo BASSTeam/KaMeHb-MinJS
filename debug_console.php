@@ -7,7 +7,7 @@ class debugConsole{
 	private $mysqli;
 	private function json($json){ (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
 	private function addElement($obj){
-		$tagname = ($obj -> tagname ? $obj -> tagname : 'div');
+		$tagname = (isset($obj -> tagname) and $obj -> tagname != false ? $obj -> tagname : 'div');
 		$inner_text = ($obj -> inner_text ? $obj -> inner_text : '');
 		$name = ($obj -> name ? ' name="' . $obj -> name . '"' : '');
 		$params = '';
