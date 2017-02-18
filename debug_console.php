@@ -107,8 +107,10 @@ class debugConsole{
 		if ($this -> state){
 			$this -> addStyle('#KaMeHb_debugConsole [name="POST"]', 'content:"POST: "','before');
 			$this -> addStyle('#KaMeHb_debugConsole [name="GET"]', 'content:"GET: "','before');
-			$this -> addElementToTop(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_GET)) . '","name":"GET","class":"message"}'));
-			$this -> addElementToTop(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_POST)) . '","name":"POST","class":"message"}'));
+			$currentGetStyle = ($this -> normalize_str($this -> json($_GET)) == 'NULL' ? 'warning_message' : 'message');
+			$currentPostStyle = ($this -> normalize_str($this -> json($_POST)) == 'NULL' ? 'warning_message' : 'message');
+			$this -> addElementToTop(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_GET)) . '","name":"GET","class":"' . $currentGetStyle . '"}'));
+			$this -> addElementToTop(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_POST)) . '","name":"POST","class":"' . $currentPostStyle . '"}'));
 		}
 	}
 	public function construct(){
