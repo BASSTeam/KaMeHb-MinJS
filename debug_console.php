@@ -6,15 +6,24 @@ class debugConsole{
 	private $mysqlStyleAdded = false;
 	private $mysqli;
 	private function json($json){ (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
-	private function addElement($tagname, $text = '', $id = NULL, $name = NULL, $class = NULL, $js = NULL, $css = NULL){
-		$this -> out = $this -> out . "<$tagname" . ($id !== NULL ? " id=\"$id\"" : '') . ($name !== NULL ? " name=\"$name\"" : '') . ($class !== NULL ? " class=\"$class\"" : '') . ">$text</$tagname>";
+	private function addElement($obj){
+		$tagname = ($obj -> tagname ? $obj -> tagname : 'div');
+		$inner_text = ($obj -> inner_text ? $obj -> inner_text : '');
+		$name = ($obj -> name ? ' name="' . $name . '"' : '');
+		$params = '';
+		foreach($obj as $key => $value) {
+			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
+				$params .= ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key")
+			}
+		}
+		$this -> out = $this -> out . "<$tagname$params" . ($obj -> tagtype == 1 ? " value=\"$inner_text\">" : ($obj -> tagtype == 2 ? " value=\"$inner_text\"></$tagname>" : ">$inner_text</$tagname>"));
 	}
 	public function turnOn(){ $this -> state = true;}
 	public function turnOff(){ $this -> state = false;}
 	public function setReverseState(){ $this -> state = !($this -> state);}
 	public function setPOST($json){ $_POST = json_decode($json);}
 	public function setGET($json){ $_GET = json_decode($json);}
-	public function message($message){ $this -> addElement('div', $message, NULL, NULL, 'message');}
+	public function message($message){ $this -> addElement(json_decode('{"inner_text":"' . $message . '","class":"message"}'));}
 	public function addStyle($selector, $style, $pseudo = NULL){
 		if ($this -> state){
 			$this -> style = $this -> style . $selector . ($pseudo !== NULL ? ":$pseudo" : '') . '{' . $style . '}' . PHP_EOL;
@@ -34,9 +43,9 @@ class debugConsole{
 	}
 	public function getArgs(){
 		if ($this -> state){
-			$this -> addElement('div', $this -> json($_POST), NULL, 'POST', 'message');
+			$this -> addElement(json_decode('{"inner_text":"' . $this -> json($_POST) . '","name":"POST","class":"message"}'));
 			$this -> addStyle('#debugConsole [name="POST"]', 'content:"POST: "','before');
-			$this -> addElement('div', $this -> json($_GET), NULL, 'GET', 'message');
+			$this -> addElement(json_decode('{"inner_text":"' . $this -> json($_GET) . '","name":"GET","class":"message"}'));
 			$this -> addStyle('#debugConsole [name="GET"]', 'content:"GET: "','before');
 		}
 	}
@@ -57,10 +66,10 @@ class debugConsole{
 		if ($this -> state){
 			$this -> addMySQLStyle();
 			if ($this -> mysqli->connect_errno){
-				$this -> addElement('div', "connecting to $db from $user at $host...", NULL, 'mysql', 'error_message');
-				$this -> addElement('div', 'error at ' . $this -> mysqli->connect_errno . ': ' . $this -> mysqli->connect_error, NULL, 'mysql', 'error_message');
+				$this -> addElement(json_decode('{"inner_text":"' . "connecting to $db from $user at $host..." . '","name":"mysql","class":"error_message"}'));
+				$this -> addElement(json_decode('{"inner_text":"' . 'error at ' . $this -> mysqli -> connect_errno . ': ' . $this -> mysqli -> connect_error . '","name":"mysql","class":"error_message"}'));
 			} else {
-				$this -> addElement('div', "connecting to $db from $user at $host... Success.", NULL, 'mysql', 'message');
+				$this -> addElement(json_decode('{"inner_text":"' . "connecting to $db from $user at $host... Success." . '","name":"mysql","class":"message"}'));
 			}
 		} else {
 			return $this -> mysqli;
