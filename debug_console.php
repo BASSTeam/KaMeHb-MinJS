@@ -7,6 +7,8 @@ class debugConsole{
 	private $mysqli;
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
 	private function addElement($obj){
+		echo "$obj\n";
+		$obj = json_decode($obj);
 		$tagname = (isset($obj -> tagname) and $obj -> tagname !== false ? $obj -> tagname : 'div');
 		$inner_text = (isset($obj -> inner_text) and $obj -> inner_text !== false ? $obj -> inner_text : '');
 		$params = '';
@@ -45,9 +47,9 @@ class debugConsole{
 	}
 	public function getArgs(){
 		if ($this -> state){
-			$this -> addElement(json_decode('{"inner_text":"' . $this -> json($_POST) . '","name":"POST","class":"message"}'));
+			$this -> addElement('{"inner_text":"' . $this -> json($_POST) . '","name":"POST","class":"message"}');
 			$this -> addStyle('#debugConsole [name="POST"]', 'content:"POST: "','before');
-			$this -> addElement(json_decode('{"inner_text":"' . $this -> json($_GET) . '","name":"GET","class":"message"}'));
+			$this -> addElement('{"inner_text":"' . $this -> json($_GET) . '","name":"GET","class":"message"}');
 			$this -> addStyle('#debugConsole [name="GET"]', 'content:"GET: "','before');
 		}
 	}
