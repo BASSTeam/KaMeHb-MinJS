@@ -118,7 +118,7 @@ class debugConsole{
 			$out = $this -> out;
 			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"
 			alert(this.parentNode.id);
-			var elem = this.parentNode.getElementById('mainDebugConsoleOutput');
+			var elem = this.parentNode.querySelector('#mainDebugConsoleOutput');
 			alert(elem.id);
 			alert(elem.style.display);
 			if (elem.style.display == 'none'){
