@@ -116,17 +116,7 @@ class debugConsole{
 	public function construct(){
 		if ($this -> state){
 			$out = $this -> out;
-			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"
-			alert(this.parentNode.id);
-			var elem = this.parentNode.querySelector('#mainDebugConsoleOutput');
-			alert(elem.id);
-			alert(elem.style.display);
-			if (elem.style.display == 'none'){
-				elem.style.display = 'block';
-			} else {
-				elem.style.display = 'none';
-			}
-			\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">$out</div></div>";
+			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">$out</div></div>";
 		}
 	}
 	private function addMySQLStyle(){
