@@ -67,8 +67,8 @@ class debugConsole{
 			$currentConsoleWarningBackground = $this -> currentConsoleWarningBackground;
 			$currentConsoleErrorBackground = $this -> currentConsoleErrorBackground;
 			$this -> addStyle('#debugConsole .console-button', "cursor:pointer;position:absolute;right:0;width:75px;height:20px;margin-top:-20px;border-top-left-radius:5px;padding-left:3px");
-			$this -> addStyle('#debugConsole .console-button', "content:'';", 'before');
-			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "position:absolute;margin-left:2px;margin-top:-16px;width:15px;height:15px;border-radius:1px;border:solid 1px $currentConsoleColor;");
+			$this -> addStyle('#debugConsole .console-button', "content:'console';", 'before');
+			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "position:absolute;margin-left:2px;margin-top:-16px;width:15px;height:15px;border-radius:1px;border:solid 1px $currentConsoleColor;right:3px;");
 			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "content:'';position:absolute;left:3px;top:-2px;width:9px;height:19px;color:$currentConsoleBackground;background-color:$currentConsoleBackground;-webkit-transform-origin:center;transform-origin:center;",'before');
 			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "content:'';position:absolute;left:3px;top:-2px;width:9px;height:19px;color:$currentConsoleBackground;background-color:$currentConsoleBackground;-webkit-transform-origin:center;transform-origin:center;-webkit-transform:rotate(90deg);transform:rotate(90deg);",'after');
 			$this -> addStyle('#debugConsole', "position:absolute;bottom:0;color:$currentConsoleColor;left:0;width:100%;font-family:Ubuntu;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:18px;");
