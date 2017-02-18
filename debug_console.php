@@ -8,12 +8,24 @@ class debugConsole{
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function addElement($obj){
-		$tagname = (isset($obj -> tagname) and $obj -> tagname !== false ? $obj -> tagname : 'div');
-		$inner_text = (isset($obj -> inner_text) and $obj -> inner_text !== false ? $obj -> inner_text : '');
+		if (isset($obj -> tagname) and $obj -> tagname !== false){
+			$tagname = $obj -> tagname;
+		} else {
+			$tagname = 'div';
+		}
+		if (isset($obj -> inner_text) and $obj -> inner_text !== false){
+			$inner_text = $obj -> inner_text;
+		} else {
+			$inner_text = '';
+		}
 		$params = '';
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
-				$params = $params . ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
+				if ($value != '' and $value !== false and $value !== NULL){
+					$params = $params . " $key=\"$value\"";
+				} else {
+					$params = $params . " $key";
+				}
 			}
 		}
 		echo json_encode($obj) . "\n";
