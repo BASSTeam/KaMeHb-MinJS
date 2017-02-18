@@ -117,7 +117,10 @@ class debugConsole{
 		if ($this -> state){
 			$out = $this -> out;
 			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"
+			alert(this.parentNode.id);
 			var elem = this.parentNode.getElementById('mainDebugConsoleOutput');
+			alert(elem.id);
+			alert(elem.style.display);
 			if (elem.style.display == 'none'){
 				elem.style.display = 'block';
 			} else {
