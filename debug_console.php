@@ -76,7 +76,7 @@ class debugConsole{
 			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "content:'';position:absolute;left:3px;top:-2px;width:9px;height:19px;color:$currentConsoleBackground;background-color:$currentConsoleBackground;-webkit-transform-origin:center;transform-origin:center;",'before');
 			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "content:'';position:absolute;left:3px;top:-2px;width:9px;height:19px;color:$currentConsoleBackground;background-color:$currentConsoleBackground;-webkit-transform-origin:center;transform-origin:center;-webkit-transform:rotate(90deg);transform:rotate(90deg);",'after');
 			$this -> addStyle('#KaMeHb_debugConsole', "position:absolute;bottom:0;color:$currentConsoleColor;left:0;width:100%;font-family:Ubuntu;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:18px;");
-			$this -> addStyle('#KaMeHb_debugConsole .message', "background:$currentConsoleBackground;");
+			$this -> addStyle('#KaMeHb_debugConsole #mainDebugConsoleOutput', "max-height:200px;overflow:auto;overflow-wrap:break-word;background-color:$currentConsoleBackground;");
 			$this -> addStyle('#KaMeHb_debugConsole .warning_message', "background:$currentConsoleWarningBackground;");
 			$this -> addStyle('#KaMeHb_debugConsole .error_message', "background:$currentConsoleErrorBackground;");
 			$this -> addStyle('#KaMeHb_debugConsole .console-button', "cursor:pointer;position:absolute;right:0;width:75px;height:20px;margin-top:-20px;border-top-left-radius:5px;padding-left:3px");
