@@ -38,7 +38,7 @@ class debugConsole{
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
 				if ($value != '' and $value !== false and $value !== NULL){
-					if ($key != 'class'){ $cur_class_prefix = $value; }
+					if ($key == 'class'){ $cur_class_prefix = $value; }
 					$params = $params . " $key=\"$value\"";
 				} else {
 					$params = $params . " $key";
@@ -46,11 +46,11 @@ class debugConsole{
 			}
 		}
 		if (isset($obj -> tagtype) and $obj -> tagtype == 1){
-			return '<div class=\"icon_wrapper\"><div class=\"' . $cur_class_prefix . "_icon\"></div></div><$tagname$params value=\"$inner_text\">";
+			return '<div class="icon_wrapper"><div class="' . $cur_class_prefix . "_icon\"></div></div><$tagname$params value=\"$inner_text\">";
 		} elseif (isset($obj -> tagtype) and $obj -> tagtype == 2){
-			return '<div class=\"icon_wrapper\"><div class=\"' . $cur_class_prefix . "_icon\"></div></div><$tagname$params value=\"$inner_text\"></$tagname>";
+			return '<div class="icon_wrapper"><div class="' . $cur_class_prefix . "_icon\"></div></div><$tagname$params value=\"$inner_text\"></$tagname>";
 		} else {
-			return '<div class=\"icon_wrapper\"><div class=\"' . $cur_class_prefix . "_icon\"></div></div><$tagname$params>$inner_text</$tagname>";
+			return '<div class="icon_wrapper"><div class="' . $cur_class_prefix . "_icon\"></div></div><$tagname$params>$inner_text</$tagname>";
 		}
 	}
 	private function addElement($obj){
