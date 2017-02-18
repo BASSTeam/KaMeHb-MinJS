@@ -5,7 +5,7 @@ class debugConsole{
 	private $style = '';
 	private $mysqlStyleAdded = false;
 	private $mysqli;
-	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
+	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NULL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function addElement($obj){
 		if (isset($obj -> tagname) and $obj -> tagname !== false){
