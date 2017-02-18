@@ -54,10 +54,10 @@ class debugConsole{
 		}
 	}
 	private function addElement($obj){
-		$this -> out = $this -> out . _addElement($obj);
+		$this -> out = $this -> out . $this -> _addElement($obj);
 	}
 	private function addElementToTop($obj){
-		$this -> out = _addElement($obj) . $this -> out;
+		$this -> out = $this -> _addElement($obj) . $this -> out;
 	}
 	public function turnOn(){ $this -> state = true;}
 	public function turnOff(){ $this -> state = false;}
