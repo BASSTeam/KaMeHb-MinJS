@@ -9,7 +9,7 @@ class debugConsole{
 	private function addElement($obj){
 		$tagname = ($obj -> tagname ? $obj -> tagname : 'div');
 		$inner_text = ($obj -> inner_text ? $obj -> inner_text : '');
-		$name = ($obj -> name ? ' name="' . $name . '"' : '');
+		$name = ($obj -> name ? ' name="' . $obj -> name . '"' : '');
 		$params = '';
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
