@@ -66,15 +66,15 @@ class debugConsole{
 			$currentConsoleBackground = $this -> currentConsoleBackground;
 			$currentConsoleWarningBackground = $this -> currentConsoleWarningBackground;
 			$currentConsoleErrorBackground = $this -> currentConsoleErrorBackground;
-			$this -> addStyle('#debugConsole .console-button', "cursor:pointer;position:absolute;right:0;width:75px;height:20px;margin-top:-20px;border-top-left-radius:5px;padding-left:3px");
-			$this -> addStyle('#debugConsole .console-button', "content:'console';", 'before');
 			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "position:absolute;margin-left:2px;margin-top:-16px;width:15px;height:15px;border-radius:1px;border:solid 1px $currentConsoleColor;right:3px;");
 			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "content:'';position:absolute;left:3px;top:-2px;width:9px;height:19px;color:$currentConsoleBackground;background-color:$currentConsoleBackground;-webkit-transform-origin:center;transform-origin:center;",'before');
 			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "content:'';position:absolute;left:3px;top:-2px;width:9px;height:19px;color:$currentConsoleBackground;background-color:$currentConsoleBackground;-webkit-transform-origin:center;transform-origin:center;-webkit-transform:rotate(90deg);transform:rotate(90deg);",'after');
-			$this -> addStyle('#debugConsole', "position:absolute;bottom:0;color:$currentConsoleColor;left:0;width:100%;font-family:Ubuntu;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:18px;");
-			$this -> addStyle('#debugConsole .message', "background:$currentConsoleBackground;");
-			$this -> addStyle('#debugConsole .warning_message', "background:$currentConsoleWarningBackground;");
-			$this -> addStyle('#debugConsole .error_message', "background:$currentConsoleErrorBackground;");
+			$this -> addStyle('#KaMeHb_debugConsole', "position:absolute;bottom:0;color:$currentConsoleColor;left:0;width:100%;font-family:Ubuntu;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:18px;");
+			$this -> addStyle('#KaMeHb_debugConsole .message', "background:$currentConsoleBackground;");
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message', "background:$currentConsoleWarningBackground;");
+			$this -> addStyle('#KaMeHb_debugConsole .error_message', "background:$currentConsoleErrorBackground;");
+			$this -> addStyle('#KaMeHb_debugConsole .console-button', "cursor:pointer;position:absolute;right:0;width:75px;height:20px;margin-top:-20px;border-top-left-radius:5px;padding-left:3px");
+			$this -> addStyle('#KaMeHb_debugConsole .console-button', "content:'console';", 'before');
 			return '<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu"/>';
 		}
 	}
@@ -87,20 +87,20 @@ class debugConsole{
 	public function getArgs(){
 		if ($this -> state){
 			$this -> addElement(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_POST)) . '","name":"POST","class":"message"}'));
-			$this -> addStyle('#debugConsole [name="POST"]', 'content:"POST: "','before');
+			$this -> addStyle('#KaMeHb_debugConsole [name="POST"]', 'content:"POST: "','before');
 			$this -> addElement(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_GET)) . '","name":"GET","class":"message"}'));
-			$this -> addStyle('#debugConsole [name="GET"]', 'content:"GET: "','before');
+			$this -> addStyle('#KaMeHb_debugConsole [name="GET"]', 'content:"GET: "','before');
 		}
 	}
 	public function construct(){
 		if ($this -> state){
 			$out = $this -> out;
-			echo "<div id=\"debugConsole\"><div class=\"message console-button\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div>$out</div>";
+			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"message console-button\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">$out</div></div>";
 		}
 	}
 	private function addMySQLStyle(){
 		if (!($this -> mysqlStyleAdded)){
-			addStyle('#debugConsole [name="mysql"]', 'content:"MySQL out: "','before');
+			addStyle('#KaMeHb_debugConsole [name="mysql"]', 'content:"MySQL out: "','before');
 			$this -> mysqlStyleAdded = true;
 		}
 	}
