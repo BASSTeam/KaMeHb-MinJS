@@ -7,16 +7,15 @@ class debugConsole{
 	private $mysqli;
 	private function json($json){ (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
 	private function addElement($obj){
-		$tagname = (isset($obj -> tagname) and $obj -> tagname != false ? $obj -> tagname : 'div');
-		$inner_text = ($obj -> inner_text ? $obj -> inner_text : '');
-		$name = ($obj -> name ? ' name="' . $obj -> name . '"' : '');
+		$tagname = (isset($obj -> tagname) and $obj -> tagname !== false ? $obj -> tagname : 'div');
+		$inner_text = (isset($obj -> inner_text) and $obj -> inner_text !== false ? $obj -> inner_text : '');
 		$params = '';
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
 				$params .= ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
 			}
 		}
-		$this -> out = $this -> out . "<$tagname$params" . ($obj -> tagtype == 1 ? " value=\"$inner_text\">" : ($obj -> tagtype == 2 ? " value=\"$inner_text\"></$tagname>" : ">$inner_text</$tagname>"));
+		$this -> out = $this -> out . "<$tagname$params" . (isset($obj -> tagtype) and $obj -> tagtype == 1 ? " value=\"$inner_text\">" : (isset($obj -> tagtype) and $obj -> tagtype == 2 ? " value=\"$inner_text\"></$tagname>" : ">$inner_text</$tagname>"));
 	}
 	public function turnOn(){ $this -> state = true;}
 	public function turnOff(){ $this -> state = false;}
