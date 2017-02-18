@@ -18,6 +18,8 @@ class debugConsole{
 	private $currentConsoleBackground = '#293134';
 	private $currentConsoleWarningBackground = '#424017';
 	private $currentConsoleErrorBackground = '#512828';
+	private $currentConsoleWarningColor = '#FFFC00';
+	private $currentConsoleErrorColor = '#FF0000';
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NULL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function _addElement($obj){
@@ -32,9 +34,11 @@ class debugConsole{
 			$inner_text = '';
 		}
 		$params = '';
+		$cur_class_prefix = 'std_line';
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
 				if ($value != '' and $value !== false and $value !== NULL){
+					if ($key != 'class'){ $cur_class_prefix = $value; }
 					$params = $params . " $key=\"$value\"";
 				} else {
 					$params = $params . " $key";
@@ -42,11 +46,11 @@ class debugConsole{
 			}
 		}
 		if (isset($obj -> tagtype) and $obj -> tagtype == 1){
-			return "<$tagname$params value=\"$inner_text\">";
+			return '<div class=\"icon_wrapper\"><div class=\"' . $cur_class_prefix . "_icon\"></div></div><$tagname$params value=\"$inner_text\">";
 		} elseif (isset($obj -> tagtype) and $obj -> tagtype == 2){
-			return "<$tagname$params value=\"$inner_text\"></$tagname>";
+			return '<div class=\"icon_wrapper\"><div class=\"' . $cur_class_prefix . "_icon\"></div></div><$tagname$params value=\"$inner_text\"></$tagname>";
 		} else {
-			return "<$tagname$params>$inner_text</$tagname>";
+			return '<div class=\"icon_wrapper\"><div class=\"' . $cur_class_prefix . "_icon\"></div></div><$tagname$params>$inner_text</$tagname>";
 		}
 	}
 	private function addElement($obj){
@@ -79,8 +83,14 @@ class debugConsole{
 			$this -> addStyle('#KaMeHb_debugConsole #mainDebugConsoleOutput', "max-height:200px;overflow:auto;overflow-wrap:break-word;background-color:$currentConsoleBackground;");
 			$this -> addStyle('#KaMeHb_debugConsole .warning_message', "background:$currentConsoleWarningBackground;");
 			$this -> addStyle('#KaMeHb_debugConsole .error_message', "background:$currentConsoleErrorBackground;");
+			$this -> addStyle('#KaMeHb_debugConsole .error_message,#KaMeHb_debugConsole .warning_message', "padding-left:20px;");
 			$this -> addStyle('#KaMeHb_debugConsole .console-button', "cursor:pointer;position:absolute;right:0;width:75px;height:20px;margin-top:-20px;border-top-left-radius:5px;padding-left:3px");
 			$this -> addStyle('#KaMeHb_debugConsole .console-button', "content:'console';", 'before');
+			$this -> addStyle('#KaMeHb_debugConsole .icon_wrapper', 'position:relative;top:-1px;');
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', "color:$currentConsoleWarningColor;position:absolute;margin-left:2px;margin-top:2px;width:15px;height:15px;background-color:$currentConsoleWarningColor;border:1px solid $currentConsoleWarningColor;border-radius:8px;");
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', 'top:3px;height:5px;', 'before');
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', 'top:10px;height:2px;', 'before');
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon:before,#KaMeHb_debugConsole .warning_message_icon:after', "left:6.5px;width:2px;background-color:$currentConsoleBackground;content:'';position:absolute;display:block;");
 			return '<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu"/>';
 		}
 	}
