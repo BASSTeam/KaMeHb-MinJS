@@ -15,6 +15,7 @@ class debugConsole{
 				$params .= ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
 			}
 		}
+		echo "{\"tagname\":\"$tagname\",\"params\":\"$params\",\"inner_text\":\"$inner_text\"}";
 		$this -> out = $this -> out . "<$tagname$params" . (isset($obj -> tagtype) and $obj -> tagtype == 1 ? " value=\"$inner_text\">" : (isset($obj -> tagtype) and $obj -> tagtype == 2 ? " value=\"$inner_text\"></$tagname>" : ">$inner_text</$tagname>"));
 	}
 	public function turnOn(){ $this -> state = true;}
