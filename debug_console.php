@@ -8,15 +8,12 @@ class debugConsole{
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function addElement($obj){
-		echo "$obj\n";
-		$obj = json_decode($obj);
 		$tagname = (isset($obj -> tagname) and $obj -> tagname !== false ? $obj -> tagname : 'div');
 		$inner_text = (isset($obj -> inner_text) and $obj -> inner_text !== false ? $obj -> inner_text : '');
 		$params = '';
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
 				$params = $params . ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
-				echo "Added $key => $value";
 			}
 		}
 		echo json_encode($obj) . "\n";
@@ -48,9 +45,9 @@ class debugConsole{
 	}
 	public function getArgs(){
 		if ($this -> state){
-			$this -> addElement('{"inner_text":"' . $this -> normalize_str($this -> json($_POST)) . '","name":"POST","class":"message"}');
+			$this -> addElement(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_POST)) . '","name":"POST","class":"message"}'));
 			$this -> addStyle('#debugConsole [name="POST"]', 'content:"POST: "','before');
-			$this -> addElement('{"inner_text":"' . $this -> normalize_str($this -> json($_GET)) . '","name":"GET","class":"message"}');
+			$this -> addElement(json_decode('{"inner_text":"' . $this -> normalize_str($this -> json($_GET)) . '","name":"GET","class":"message"}'));
 			$this -> addStyle('#debugConsole [name="GET"]', 'content:"GET: "','before');
 		}
 	}
