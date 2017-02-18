@@ -6,6 +6,7 @@ class debugConsole{
 	private $mysqlStyleAdded = false;
 	private $mysqli;
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NUA' . 'LL');}
+	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function addElement($obj){
 		echo "$obj\n";
 		$obj = json_decode($obj);
@@ -27,7 +28,7 @@ class debugConsole{
 	public function setReverseState(){ $this -> state = !($this -> state);}
 	public function setPOST($json){ $_POST = json_decode($json);}
 	public function setGET($json){ $_GET = json_decode($json);}
-	public function message($message){ $this -> addElement(json_decode('{"inner_text":"' . $message . '","class":"message"}'));}
+	public function message($message){ $this -> addElement(json_decode('{"inner_text":"' . $this -> normalize_str($message) . '","class":"message"}'));}
 	public function addStyle($selector, $style, $pseudo = NULL){
 		if ($this -> state){
 			$this -> style = $this -> style . $selector . ($pseudo !== NULL ? ":$pseudo" : '') . '{' . $style . '}' . PHP_EOL;
@@ -47,9 +48,9 @@ class debugConsole{
 	}
 	public function getArgs(){
 		if ($this -> state){
-			$this -> addElement('{"inner_text":"' . $this -> json($_POST) . '","name":"POST","class":"message"}');
+			$this -> addElement('{"inner_text":"' . $this -> normalize_str($this -> json($_POST)) . '","name":"POST","class":"message"}');
 			$this -> addStyle('#debugConsole [name="POST"]', 'content:"POST: "','before');
-			$this -> addElement('{"inner_text":"' . $this -> json($_GET) . '","name":"GET","class":"message"}');
+			$this -> addElement('{"inner_text":"' . $this -> normalize_str($this -> json($_GET)) . '","name":"GET","class":"message"}');
 			$this -> addStyle('#debugConsole [name="GET"]', 'content:"GET: "','before');
 		}
 	}
