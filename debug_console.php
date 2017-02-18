@@ -1,4 +1,12 @@
 <?php
+/*
+To use this script you may require it directly from GitHub:
+require('https://raw.githubusercontent.com/BASSTeam/KaMeHb-MinJS/master/debug_console.php');
+or copy current version's code to the head of your script.
+
+To know what commands are currently supported, you may type 'help' command in console.
+NB!	All commands you are using in console are ONE-TIME LAUNCHABLE; directly in PHP script - PERMANENT
+*/
 class debugConsole{
 	private $state = true;
 	private $out = '';
