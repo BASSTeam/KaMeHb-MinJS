@@ -13,7 +13,7 @@ class debugConsole{
 		$params = '';
 		foreach($obj as $key => $value) {
 			if ($key != 'tagname' and $key != 'inner_text' and $key != 'tagtype'){
-				$params .= ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key")
+				$params .= ($value != '' and $value !== false and $value !== NULL ? " $key=\"$value\"" : " $key");
 			}
 		}
 		$this -> out = $this -> out . "<$tagname$params" . ($obj -> tagtype == 1 ? " value=\"$inner_text\">" : ($obj -> tagtype == 2 ? " value=\"$inner_text\"></$tagname>" : ">$inner_text</$tagname>"));
