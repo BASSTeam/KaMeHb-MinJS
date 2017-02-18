@@ -20,6 +20,7 @@ class debugConsole{
 	private $currentConsoleErrorBackground = '#512828';
 	private $currentConsoleWarningColor = '#FFFC00';
 	private $currentConsoleErrorColor = '#FF0000';
+	private $codename = 'debugger';
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NULL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function _addElement($obj){
@@ -116,7 +117,10 @@ class debugConsole{
 	public function construct(){
 		if ($this -> state){
 			$out = $this -> out;
-			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">$out</div></div>";
+			$codename = $this -> codename;
+			$pathInfo = $_SERVER['PATH_INFO'];
+			$server = $_SERVER['SERVER_NAME'];
+			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">$out<div><div style=\"display: inline-block;\">$codename@$server: $pathInfo/</div><div style=\"display: inline-block;height: 18px;\"><form method=\"POST\"><input name=\"command\" value=\"\"><input value=\"OK\" type=\"submit\"></form></div></div></div></div>";
 		}
 	}
 	private function addMySQLStyle(){
