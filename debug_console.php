@@ -1,5 +1,6 @@
 <?php
 /*
+Used CSS ICON -- project by Wenting Zhang => http://cssicon.space
 To use this script you may require it directly from GitHub:
 require('https://raw.githubusercontent.com/BASSTeam/KaMeHb-MinJS/master/debug_console.php');
 or copy current version's code to the head of your script.
@@ -13,6 +14,8 @@ class debugConsole{
 	private $style = '';
 	private $mysqlStyleAdded = false;
 	private $mysqli;
+	private $currentConsoleColor = '#67A9B1';
+	private $currentConsoleBackground = '#293134';
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NULL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function addElement($obj){
@@ -57,7 +60,12 @@ class debugConsole{
 	}
 	public function getHeader(){
 		if ($this -> state){
-			$this -> addStyle('#debugConsole', 'position:absolute;bottom:0;background:#293134;color:#67A9B1;left:0;width:100%;font-family:Ubuntu;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:18px;');
+			$currentConsoleColor = $this -> currentConsoleColor;
+			$currentConsoleBackground = $this -> currentConsoleBackground;
+			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "position:absolute;margin-left:2px;margin-top:2px;width:15px;height:15px;border-radius:1px;border:solid 1px $currentConsoleColor;");
+			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "content:'';position:absolute;left:3px;top:-2px;width:9px;height:19px;color:$currentConsoleBackground;background-color:$currentConsoleColor;-webkit-transform-origin:center;transform-origin:center;",'before');
+			$this -> addStyle('#debugConsoleBlockSelfCSSIcon', "content:'';position:absolute;left:3px;top:-2px;width:9px;height:19px;color:$currentConsoleBackground;background-color:$currentConsoleColor;-webkit-transform-origin:center;transform-origin:center;-webkit-transform:rotate(90deg);transform:rotate(90deg);",'after');
+			$this -> addStyle('#debugConsole', "position:absolute;bottom:0;background:$currentConsoleBackground;color:$currentConsoleColor;left:0;width:100%;font-family:Ubuntu;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:18px;");
 			return '<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu"/>';
 		}
 	}
@@ -78,7 +86,7 @@ class debugConsole{
 	public function construct(){
 		if ($this -> state){
 			$out = $this -> out;
-			echo "<div id=\"debugConsole\">$out</div>";
+			echo "<div id=\"debugConsole\"><div><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div>$out</div>";
 		}
 	}
 	private function addMySQLStyle(){
