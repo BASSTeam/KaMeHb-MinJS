@@ -32,10 +32,13 @@ class debugConsole{
 		echo "{\"tagname\":\"$tagname\",\"params\":\"$params\",\"inner_text\":\"$inner_text\"}\n";
 		if (isset($obj -> tagtype) and $obj -> tagtype == 1){
 			$this -> out = $this -> out . "<$tagname$params value=\"$inner_text\">";
+			echo "<$tagname$params value=\"$inner_text\">";
 		} elseif (isset($obj -> tagtype) and $obj -> tagtype == 2){
 			$this -> out = $this -> out . "<$tagname$params value=\"$inner_text\"></$tagname>";
+			echo "<$tagname$params value=\"$inner_text\"></$tagname>";
 		} else {
 			$this -> out = $this -> out . "<$tagname$params>$inner_text</$tagname>";
+			echo "<$tagname$params>$inner_text</$tagname>";
 		}
 	}
 	public function turnOn(){ $this -> state = true;}
