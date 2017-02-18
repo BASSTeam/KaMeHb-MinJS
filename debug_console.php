@@ -89,11 +89,11 @@ class debugConsole{
 			$this -> addStyle('#KaMeHb_debugConsole .error_message,#KaMeHb_debugConsole .warning_message', "padding-left:20px;");
 			$this -> addStyle('#KaMeHb_debugConsole .console-button', "cursor:pointer;position:absolute;right:0;width:75px;height:20px;margin-top:-20px;border-top-left-radius:5px;padding-left:3px");
 			$this -> addStyle('#KaMeHb_debugConsole .console-button', "content:'console';", 'before');
-			$this -> addStyle('#KaMeHb_debugConsole .icon_wrapper', 'position:relative;top:-1px;');
-			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', "color:$currentConsoleWarningColor;position:absolute;margin-left:2px;margin-top:2px;width:15px;height:15px;background-color:$currentConsoleWarningColor;border:1px solid $currentConsoleWarningColor;border-radius:8px;");
-			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', 'top:3px;height:5px;', 'before');
-			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', 'top:10px;height:2px;', 'after');
-			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon:before,#KaMeHb_debugConsole .warning_message_icon:after', "left:6.5px;width:2px;background-color:$currentConsoleBackground;content:'';position:absolute;display:block;");
+			$this -> addStyle('#KaMeHb_debugConsole .icon_wrapper', 'position:relative;');
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', "color:$currentConsoleWarningColor;position:absolute;margin-left:2px;margin-top:2px;width:12px;height:12px;background-color:$currentConsoleWarningColor;border:1px solid $currentConsoleWarningColor;border-radius:8px;");
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', 'top:1px;height:7px;', 'before');
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon', 'top:9px;height:2px;', 'after');
+			$this -> addStyle('#KaMeHb_debugConsole .warning_message_icon:before,#KaMeHb_debugConsole .warning_message_icon:after', "left:5px;width:2px;background-color:$currentConsoleBackground;content:'';position:absolute;display:block;");
 			return '<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu"/>';
 		}
 	}
