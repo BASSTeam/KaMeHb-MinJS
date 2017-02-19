@@ -152,14 +152,18 @@ class debugConsole{
 		if (!$result = $this -> mysqli -> query($sql)){
 			if ($this -> state){
 				$this -> addMySQLStyle();
-				// ADD ERROR ON QUERY LOG
+				$errno = $this -> mysqli -> errno;
+				$error = $this -> mysqli -> error;
+				$this -> addElement(json_decode('{"inner_text":"' . "error $errno on query ''$sql'': $error" . '.","name":"mysql","class":"error_message"}'));
 			} else {
 				return false;
 			}
 		} else {
 			if ($this -> state){
 				$this -> addMySQLStyle();
-				// ADD NORMAL QUERY LOG
+				$info = $this -> mysqli -> info;
+				$rows = $this -> mysqli -> affected_rows;
+				$this -> addElement(json_decode('{"inner_text":"' . "''$sql'': $info Affected rows: $rows" . '","name":"mysql","class":"message"}'));
 			} else {
 				return $result;
 			}
