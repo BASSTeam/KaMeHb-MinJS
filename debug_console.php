@@ -165,7 +165,7 @@ class debugConsole{
 			}
 		}
 	}
-	public function debugConsole(){
+	public function __construct(){
 		if (isset($_POST['command_for_debug_console'])){
 			$this -> command = $_POST['command_for_debug_console'];
 			unset($_POST['command_for_debug_console']);
