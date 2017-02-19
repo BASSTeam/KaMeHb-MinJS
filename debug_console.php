@@ -21,7 +21,7 @@ class debugConsole{
 	private $currentConsoleWarningColor = '#FFFC00';
 	private $currentConsoleErrorColor = '#FF0000';
 	private $codename = 'tester';
-	private $command = $_POST['command_for_debug_console'];
+	private $command;
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NULL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function _addElement($obj){
@@ -166,7 +166,8 @@ class debugConsole{
 		}
 	}
 	private function debugConsole(){
-		if (isset($this -> command)){
+		if (isset($_POST['command_for_debug_console'])){
+			$this -> command = $_POST['command_for_debug_console'];
 			unset($_POST['command_for_debug_console']);
 			echo $this -> command;
 		}
