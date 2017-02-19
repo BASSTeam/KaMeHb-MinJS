@@ -177,7 +177,7 @@ class debugConsole{
 		if (isset($_POST['command_for_debug_console'])){
 			$command = $_POST['command_for_debug_console'];
 			unset($_POST['command_for_debug_console']);
-			$this -> $command();
+			//$this -> $command();
 		}
 	}
 }
