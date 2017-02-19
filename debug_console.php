@@ -21,7 +21,6 @@ class debugConsole{
 	private $currentConsoleWarningColor = '#FFFC00';
 	private $currentConsoleErrorColor = '#FF0000';
 	private $codename = 'tester';
-	private $command;
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NULL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function _addElement($obj){
@@ -72,7 +71,7 @@ class debugConsole{
 			$this -> style = $this -> style . $selector . ($pseudo !== NULL ? ":$pseudo" : '') . '{' . $style . '}' . PHP_EOL;
 		}
 	}
-	public function getHeader(){
+	private function getHeader(){
 		if ($this -> state){
 			$currentConsoleColor = $this -> currentConsoleColor;
 			$currentConsoleBackground = $this -> currentConsoleBackground;
@@ -99,13 +98,13 @@ class debugConsole{
 			return '<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu"/>';
 		}
 	}
-	public function getStyleSheet(){
+	private function getStyleSheet(){
 		if ($this -> state){
 			$style = $this -> style;
 			return "<style>$style</style>";
 		}
 	}
-	public function getArgs(){
+	private function getArgs(){
 		if ($this -> state){
 			$this -> addStyle('#KaMeHb_debugConsole [name="POST"]', 'content:"POST: "','before');
 			$this -> addStyle('#KaMeHb_debugConsole [name="GET"]', 'content:"GET: "','before');
@@ -169,11 +168,16 @@ class debugConsole{
 			}
 		}
 	}
+	public function constructHead($buildArgs = false){
+		if ($buildArgs){ $this -> getArgs(); }
+		echo $this -> getHeader();
+		echo $this -> getStyleSheet();
+	}
 	public function __construct(){
 		if (isset($_POST['command_for_debug_console'])){
-			$this -> command = $_POST['command_for_debug_console'];
+			$command = $_POST['command_for_debug_console'];
 			unset($_POST['command_for_debug_console']);
-			echo $this -> command;
+			$this -> $command;
 		}
 	}
 }
