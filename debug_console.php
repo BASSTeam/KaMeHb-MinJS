@@ -20,7 +20,8 @@ class debugConsole{
 	private $currentConsoleErrorBackground = '#512828';
 	private $currentConsoleWarningColor = '#FFFC00';
 	private $currentConsoleErrorColor = '#FF0000';
-	private $codename = 'debugger';
+	private $codename = 'tester';
+	private $command = $_POST['command_for_debug_console'];
 	private function json($json){ return (json_encode($json) != '[]' ? json_encode($json) : 'NULL');}
 	private function normalize_str($str){ return str_replace('"', '\\"', str_replace('\\', '\\\\', $str));}
 	private function _addElement($obj){
@@ -124,7 +125,7 @@ class debugConsole{
 			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">";
 			echo $out;
 			echo "<table style=\"width:100%;color:inherit;font:inherit;font-size:inherit;border-collapse:collapse;border:0;\"><tbody><tr><td style=\"width:0;border:0;\">$codename@$server:$</td><td style=\"overflow:hidden;border:0;\"><div style=\"height: 18px;\">";
-			echo "<form method=\"POST\" style=\"width:100%;\"><input name=\"command\" value=\"\" style=\"width:100%;color:inherit;background-color:inherit;border:0;\"><input value=\"OK\" style=\"display:none;\" type=\"submit\"></form></div></td></tr></tbody></table></div></div>";
+			echo "<form method=\"POST\" style=\"width:100%;\"><input name=\"command_for_debug_console\" value=\"\" style=\"width:100%;color:inherit;background-color:inherit;border:0;\"><input value=\"OK\" style=\"display:none;\" type=\"submit\"></form></div></td></tr></tbody></table></div></div>";
 		}
 	}
 	private function addMySQLStyle(){
@@ -162,6 +163,12 @@ class debugConsole{
 			} else {
 				return $result;
 			}
+		}
+	}
+	private function debugConsole(){
+		if (isset($this -> command)){
+			unset($_POST['command_for_debug_console']);
+			echo $this -> command;
 		}
 	}
 }
