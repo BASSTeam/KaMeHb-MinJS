@@ -4,7 +4,6 @@ Used CSS ICON -- project by Wenting Zhang => http://cssicon.space
 To use this script you may require it directly from GitHub:
 require('https://raw.githubusercontent.com/BASSTeam/KaMeHb-MinJS/master/debug_console.php');
 or copy current version's code to the head of your script.
-
 To know what commands are currently supported, you may type 'help' command in console.
 NB!	All commands you are using in console are ONE-TIME LAUNCHABLE; directly in PHP script - PERMANENT
 */
@@ -124,7 +123,9 @@ class debugConsole{
 			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">";
 			echo $out;
 			echo "<table style=\"width:100%;color:inherit;font:inherit;font-size:inherit;border-collapse:collapse;border:0;\"><tbody><tr><td style=\"width:1px;border:0;\">$codename@$server:$</td><td style=\"overflow:hidden;border:0;\"><div style=\"height: 18px;\">";
-			echo "<form method=\"POST\" style=\"width:100%;\"><input name=\"command_for_debug_console\" value=\"\" style=\"width:100%;color:inherit;background-color:inherit;border:0;\"><input value=\"OK\" style=\"display:none;\" type=\"submit\"></form></div></td></tr></tbody></table></div></div>";
+			echo "<form method=\"POST\" style=\"width:100%;\" onsubmit=\"
+			submit(this);
+			\"><input name=\"command_for_debug_console\" value=\"\" style=\"width:100%;color:inherit;background-color:inherit;border:0;\"><input value=\"OK\" style=\"display:none;\" type=\"submit\"></form></div></td></tr></tbody></table></div></div>";
 		}
 	}
 	private function addMySQLStyle(){
@@ -174,10 +175,15 @@ class debugConsole{
 		echo $this -> getStyleSheet();
 	}
 	public function __construct(){
+		$command_args = json_decode('{arguments:[]}') -> arguments;
+		if (isset($_POST['command_args_for_debug_console'])){
+			$command_args = json_decode($_POST['command_args_for_debug_console']) -> arguments;
+			unset($_POST['command_args_for_debug_console']);
+		}
 		if (isset($_POST['command_for_debug_console'])){
 			$command = $_POST['command_for_debug_console'];
 			unset($_POST['command_for_debug_console']);
-			$this -> $command();
+			$this -> $command($command_args);
 		}
 	}
 }
