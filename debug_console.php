@@ -129,7 +129,7 @@ class debugConsole{
 			var pos = c_value.search(expression);
 			if (pos != -1){
 				this.querySelector('input[name=command_type_for_debug_console]').value = 'function';
-				this.querySelector('input[name=command_for_debug_console]').value = string.substr(0, pos);
+				this.querySelector('input[name=command_for_debug_console]').value = c_value.substr(0, pos);
 				alert(pos);
 			}
 			submit(this);
