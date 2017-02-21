@@ -123,7 +123,7 @@ class debugConsole{
 			echo "<div id=\"KaMeHb_debugConsole\"><div class=\"console-button\" onclick=\"var elem=this.parentNode.querySelector('#mainDebugConsoleOutput');if (elem.style.display=='none'){elem.style.display='block';}else{elem.style.display='none';}\"><div id=\"debugConsoleBlockSelfCSSIcon\"></div></div><div id=\"mainDebugConsoleOutput\">";
 			echo $out;
 			echo "<table style=\"width:100%;color:inherit;font:inherit;font-size:inherit;border-collapse:collapse;border:0;\"><tbody><tr><td style=\"width:1px;border:0;\">$codename@$server:$</td><td style=\"overflow:hidden;border:0;\"><div style=\"height: 18px;\">";
-			echo "<form method=\"POST\" style=\"width:100%;\" onsubmit=\"
+			echo "<form method=\"POST\" name=\"submitform\" style=\"width:100%;\" onsubmit=\"
 			var c_value = this.name;
 			alert(c_value);
 			var expression = '(';
