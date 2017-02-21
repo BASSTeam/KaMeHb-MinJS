@@ -185,13 +185,17 @@ class debugConsole{
 	public function __construct(){
 		$command_args = json_decode('{"arguments":[]}') -> arguments;
 		$command_type = 'value';
-		if (isset($_POST['command_args_for_debug_console'])){
-			$command_args = json_decode($_POST['command_args_for_debug_console']) -> arguments;
-			unset($_POST['command_args_for_debug_console']);
-		}
 		if (isset($_POST['command_type_for_debug_console'])){
 			$command_type = $_POST['command_type_for_debug_console'];
 			unset($_POST['command_type_for_debug_console']);
+		}
+		if ($command_type == 'function'){
+			if (isset($_POST['command_args_for_debug_console'])){
+				$command_args = json_decode($_POST['command_args_for_debug_console']) -> arguments;
+			}
+		}
+		if (isset($_POST['command_args_for_debug_console'])){
+			unset($_POST['command_args_for_debug_console']);
 		}
 		if (isset($_POST['command_for_debug_console'])){
 			$command = $_POST['command_for_debug_console'];
