@@ -124,8 +124,16 @@ class debugConsole{
 			echo $out;
 			echo "<table style=\"width:100%;color:inherit;font:inherit;font-size:inherit;border-collapse:collapse;border:0;\"><tbody><tr><td style=\"width:1px;border:0;\">$codename@$server:$</td><td style=\"overflow:hidden;border:0;\"><div style=\"height: 18px;\">";
 			echo "<form method=\"POST\" style=\"width:100%;\" onsubmit=\"
+			var c_value = this.getElementsByName('command_for_debug_console')[0].value;
+			var expression = /(/i;
+			var pos = c_value.search(expression);
+			if (pos != -1){
+				this.getElementsByName('command_type_for_debug_console')[0].value = 'function';
+				c_value = string.substr(0, pos);
+				alert(pos);
+			}
 			submit(this);
-			\"><input name=\"command_for_debug_console\" value=\"\" style=\"width:100%;color:inherit;background-color:inherit;border:0;\"><input value=\"OK\" style=\"display:none;\" type=\"submit\"></form></div></td></tr></tbody></table></div></div>";
+			\"><input name=\"command_for_debug_console\" value=\"\" style=\"width:100%;color:inherit;background-color:inherit;border:0;\"><input name=\"command_args_for_debug_console\" value=\"\" type=\"hidden\"><input name=\"command_type_for_debug_console\" value=\"value\" type=\"hidden\"><input value=\"OK\" style=\"display:none;\" type=\"submit\"></form></div></td></tr></tbody></table></div></div>";
 		}
 	}
 	private function addMySQLStyle(){
@@ -175,15 +183,24 @@ class debugConsole{
 		echo $this -> getStyleSheet();
 	}
 	public function __construct(){
-		$command_args = json_decode('{arguments:[]}') -> arguments;
+		$command_args = json_decode('{"arguments":[]}') -> arguments;
+		$command_type = 'value';
 		if (isset($_POST['command_args_for_debug_console'])){
 			$command_args = json_decode($_POST['command_args_for_debug_console']) -> arguments;
 			unset($_POST['command_args_for_debug_console']);
 		}
+		if (isset($_POST['command_type_for_debug_console'])){
+			$command_type = $_POST['command_type_for_debug_console'];
+			unset($_POST['command_type_for_debug_console']);
+		}
 		if (isset($_POST['command_for_debug_console'])){
 			$command = $_POST['command_for_debug_console'];
 			unset($_POST['command_for_debug_console']);
-			$this -> $command($command_args);
+			if ($command_type == 'function'){
+				$this -> $command($command_args);
+			} else {
+				$this -> $command;
+			}
 		}
 	}
 }
