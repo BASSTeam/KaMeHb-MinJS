@@ -124,11 +124,12 @@ class debugConsole{
 			echo $out;
 			echo "<table style=\"width:100%;color:inherit;font:inherit;font-size:inherit;border-collapse:collapse;border:0;\"><tbody><tr><td style=\"width:1px;border:0;\">$codename@$server:$</td><td style=\"overflow:hidden;border:0;\"><div style=\"height: 18px;\">";
 			echo "<form method=\"POST\" style=\"width:100%;\" onsubmit=\"
-			var c_value = this.querySelector('[name=command_for_debug_console]')[0].value;
+			var c_value = this.querySelector('input[name=command_for_debug_console]')[0].value;
+			alert(c_value);
 			var expression = '(';
 			var pos = c_value.search(expression);
 			if (pos != -1){
-				this.querySelector('[name=command_type_for_debug_console]')[0].value = 'function';
+				this.querySelector('input[name=command_type_for_debug_console]')[0].value = 'function';
 				c_value = string.substr(0, pos);
 				alert(pos);
 			}
