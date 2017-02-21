@@ -190,7 +190,7 @@ class debugConsole{
 			unset($_POST['command_type_for_debug_console']);
 		}
 		if ($command_type == 'function'){
-			if (isset($_POST['command_args_for_debug_console']) and $_POST['command_args_for_debug_console'] != ''){
+			if (isset($_POST['command_args_for_debug_console']) and gettype(json_decode($_POST['command_args_for_debug_console'])) == 'object'){
 				$command_args = json_decode($_POST['command_args_for_debug_console']) -> arguments;
 			}
 		}
