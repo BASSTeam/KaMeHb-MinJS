@@ -130,7 +130,9 @@ class debugConsole{
 			if (pos != -1){
 				this.querySelector('input[name=command_type_for_debug_console]').value = 'function';
 				this.querySelector('input[name=command_for_debug_console]').value = c_value.substr(0, pos);
-				alert(pos);
+				if (c_value.charAt(c_value.length-1) == ')' or c_value.charAt(c_value.length-1) == ';'){
+					alert c_value.charAt(c_value.length-1);
+				}
 			}
 			submit(this);
 			\"><input name=\"command_for_debug_console\" value=\"\" style=\"width:100%;color:inherit;background-color:inherit;border:0;\"><input name=\"command_args_for_debug_console\" value=\"\" type=\"hidden\"><input name=\"command_type_for_debug_console\" value=\"value\" type=\"hidden\"><input value=\"OK\" style=\"display:none;\" type=\"submit\"></form></div></td></tr></tbody></table></div></div>";
