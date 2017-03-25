@@ -13,7 +13,7 @@
   class jString extends functionalObject{
       private $functions = [
         'set(string $str):string' => 'Propertly sets the value of extended string object',
-        'split(void):array' => 'Splits the string',
+        'split(string $delimiter):array' => 'Splits the string',
         'fromCharCode(int $code):string' => 'Returns the char from code',
         ];
       private $str = '';
@@ -38,6 +38,12 @@
       public function set(string $str){
         $this -> str = $str;
         return $this -> str;
+      }
+      public function split(string $delimiter){
+        return explode($delimiter,$this -> str);
+      }
+      public static function fromCharCode() {
+        return array_reduce(func_get_args(),function($a,$b){$a.=chr($b);return $a;});
       }
   }
   ?>
