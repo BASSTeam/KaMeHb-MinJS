@@ -14,9 +14,15 @@
       private $functions = [
         'set(string $str):string' => 'Propertly sets the value of extended string object',
         'split(string $delimiter):array' => 'Splits the string',
-        'fromCharCode(int $code):string' => 'Returns the char from code',
         ];
+      private $static_methods = [
+        'fromCharCode(int $code1, ...):string' => 'Returns the char(-s) from code(-s)',
+      ];
       private $str = '';
+      protected $name;
+      public function __construct($name){
+          $this->name = $name;
+      }
       public function __toString(){
           return $this -> str;
       }
@@ -28,11 +34,15 @@
         foreach ($this -> functions as $key => $value){
            $func_counter++;
         }
-        echo "string($class):($len)#$func_counter \"$str\"\nfunctions:";
+        echo "string($class):($len)#$func_counter \"$str\"\nFunctions:";
         foreach ($this -> functions as $key => $value){
-            echo "\n\t$key\n\t\t$value";
+            echo "\n\t\$$name -> $key\n\t\t$value";
         }
-        echo "\nNative type: ";
+        echo "\n\nStatic methods:";
+        foreach ($this -> static_methods as $key => $value){
+            echo "\n\t$class::$key\n\t\t$value";
+        }
+        echo "\n\nNative type: ";
         return [];
       }
       public function set(string $str){
