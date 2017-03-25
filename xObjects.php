@@ -19,14 +19,16 @@
         'fromCharCode(int $code1, ...):string' => 'Returns the char(-s) from code(-s)',
       ];
       private $str = '';
-      protected $name;
-      public function __construct($name){
-          $this->name = $name;
-      }
       public function __toString(){
           return $this -> str;
       }
       public function __debugInfo() {
+        $name = '$';
+        foreach($GLOBALS as $var_name => $var_value) {
+            if ($var_value === $this) {
+                $name .= $var_name;
+            }
+        }
         $len = strlen($this -> str);
         $str = $this -> str;
         $func_counter = 0;
