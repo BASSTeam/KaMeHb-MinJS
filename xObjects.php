@@ -23,10 +23,9 @@
           return $this -> str;
       }
       public function __debugInfo() {
-        $name = '$';
         foreach($GLOBALS as $var_name => $var_value) {
             if ($var_value === $this) {
-                $name .= $var_name;
+                $name = $var_name;
             }
         }
         $len = strlen($this -> str);
