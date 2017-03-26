@@ -34,7 +34,7 @@
       public function __debugInfo() {
         foreach($GLOBALS as $var_name => $var_value) {
             if ($var_value === $this) {
-                $name = $var_name;
+                $name = '$' . $var_name;
             }
         }
         $len = strlen($this -> str);
@@ -46,7 +46,7 @@
         }
         echo "string($class):($len)#$func_counter \"$str\"\nFunctions:";
         foreach ($this -> functions as $key => $value){
-            echo "\n\t\$$name -> $key\n\t\t$value";
+            echo "\n\t$name -> $key\n\t\t$value";
         }
         echo "\n\nStatic methods:";
         foreach ($this -> static_methods as $key => $value){
