@@ -52,10 +52,14 @@
         foreach ($this -> static_methods as $key => $value){
             echo "\n\t$class::$key\n\t\t$value";
         }
-        echo "\n\nPublic vars:";
+        echo "\n\nPublic vars:\n";
         foreach ($this -> public_vars() as $key => $value){
-            echo "\n\t$name -> $key = ";
+            ob_start();
             var_dump($value);
+            $value = ob_get_clean();
+            $value = str_replace("\n  ", "\n\t\t", $value);
+            $value = str_replace("\n}", "\n\t}", $value);
+            echo "\t$name -> $key = $value";
         }
         echo "\nNative type: ";
         return [];
