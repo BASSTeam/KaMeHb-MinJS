@@ -54,7 +54,8 @@
         }
         echo "\n\nPublic vars:";
         foreach ($this -> public_vars() as $key => $value){
-            echo "\n\t$name -> $key = $value";
+            echo "\n\t$name -> $key = ";
+            var_dump($value);
         }
         echo "\n\nNative type: ";
         return [];
