@@ -60,7 +60,7 @@
             $value = ob_get_clean();
             $value = str_replace("\n  ", "\n\t\t", $value);
             $value = str_replace("\n}", "\n\t}", $value);
-            $value = preg_replace("[=]{1}[>]{1}[\r]?[\n]{1}[\s]*", " => ", $value);
+            $value = preg_replace("[\=]{1}[>]{1}[\r]?[\n]{1}[\s]*", " => ", $value);
             echo "\t$name -> $key = $value";
         }
         echo "\nNative type: ";
