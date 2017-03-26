@@ -59,6 +59,7 @@
             $value = ob_get_clean();
             $value = str_replace("\n  ", "\n\t\t", $value);
             $value = str_replace("\n}", "\n\t}", $value);
+            $value = str_replace("=>\n\t\t", " => ", $value);
             echo "\t$name -> $key = $value";
         }
         echo "\nNative type: ";
