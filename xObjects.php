@@ -44,7 +44,7 @@
         foreach ($this -> functions as $key => $value){
            $func_counter++;
         }
-        echo "string($class):($len)#$func_counter \"$str\"\nFunctions:";
+        echo "$name: string($class):($len)#$func_counter \"$str\"\nFunctions:";
         foreach ($this -> functions as $key => $value){
             echo "\n\t$name -> $key\n\t\t$value";
         }
