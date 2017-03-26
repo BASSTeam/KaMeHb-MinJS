@@ -17,8 +17,9 @@
   }
   class jString extends stdClass{
       private $functions = [
-        'set(string $str):string' => 'Propertly sets the value of extended string object',
-        'split(string $delimiter):array' => 'Splits the string',
+        'set(string $str):string'           => 'Propertly sets the value of extended string object',
+        'split(string $delimiter):array'    => 'Splits the string',
+        'reverse(void):string'              => 'Returns reversed string'
         ];
       private $static_methods = [
         'fromCharCode(int $code1, ...):string' => 'Returns the char(-s) from code(-s)',
@@ -59,7 +60,7 @@
             $value = ob_get_clean();
             $value = str_replace("\n  ", "\n\t\t", $value);
             $value = str_replace("\n}", "\n\t}", $value);
-            $value = str_replace("=>\n\t\t", " => ", $value);
+            $value = preg_replace("=>[\r]?[\n]{1}[\s]*", " => ", $value);
             echo "\t$name -> $key = $value";
         }
         echo "\nNative type: ";
@@ -72,9 +73,11 @@
       public function split(string $delimiter){
         return explode($delimiter,$this -> str);
       }
-      public static function fromCharCode() {
+      public static function fromCharCode(){
         return array_reduce(func_get_args(),function($a,$b){$a.=chr($b);return $a;});
       }
-      public $test = ['a','test' => 'b'];
+      public static function reverse(){
+        return strrev($this -> str);
+      }
   }
 ?>
