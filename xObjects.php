@@ -57,7 +57,7 @@
             echo "\n\t$name -> $key = ";
             var_dump($value);
         }
-        echo "\n\nNative type: ";
+        echo "\nNative type: ";
         return [];
       }
       public function set(string $str){
@@ -70,5 +70,6 @@
       public static function fromCharCode() {
         return array_reduce(func_get_args(),function($a,$b){$a.=chr($b);return $a;});
       }
+      public $test = ['a','test' => 'b'];
   }
-  ?>
+?>
