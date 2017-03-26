@@ -1,4 +1,9 @@
 <?php
+  class getObjectPublicVars extends stdClass{
+    public function get($obj){
+        return get_object_vars($obj);
+    }
+  }
   class functionalObject extends stdClass{
       public function __call($closure, $args){
           return call_user_func_array($this -> {$closure} -> bindTo($this),$args);
@@ -10,7 +15,7 @@
           $this -> $prop_name = $prop;
       }
   }
-  class jString extends functionalObject{
+  class jString extends stdClass{
       private $functions = [
         'set(string $str):string' => 'Propertly sets the value of extended string object',
         'split(string $delimiter):array' => 'Splits the string',
@@ -18,6 +23,10 @@
       private $static_methods = [
         'fromCharCode(int $code1, ...):string' => 'Returns the char(-s) from code(-s)',
       ];
+      private function public_vars(){
+        $tmpobj = new getObjectPublicVars();
+        return $tmpobj -> get($this);
+      }
       private $str = '';
       public function __toString(){
           return $this -> str;
@@ -42,6 +51,10 @@
         echo "\n\nStatic methods:";
         foreach ($this -> static_methods as $key => $value){
             echo "\n\t$class::$key\n\t\t$value";
+        }
+        echo "\n\nPublic vars:";
+        foreach ($this -> public_vars() as $key => $value){
+            echo "\n\t$name -> $key = $value";
         }
         echo "\n\nNative type: ";
         return [];
