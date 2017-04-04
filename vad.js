@@ -1,52 +1,99 @@
-function getSrc(text){
-    function vk_decryptor_main(e, t) {
-        Object.defineProperty(t, "__esModule", {
-            value: !0
-        }),
-        t.audioUnmaskSource = a;
-        var n = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN0PQRSTUVWXYZO123456789+/=",
-            i = {
-                v: function (e) {
-                    return e.split("").reverse().join("")
-                },
-                r: function (e, t) {
-                    e = e.split("");
-                    for (var i, a = n + n, o = e.length; o--;) i = a.indexOf(e[o]),
-                    ~i && (e[o] = a.substr(i - t, 1));
-                    return e.join("")
-                },
-                x: function (e, t) {
-                    var n = [];
-                    return t = t.charCodeAt(0),
-                    each(e.split(""), function (e, i) {
-                        n.push(String.fromCharCode(i.charCodeAt(0) ^ t))
-                    }),
-                    n.join("")
-                }
-            };
-
-        function a(e) {
-            if (~e.indexOf("audio_api_unavailable")) {
-                var t = e.split("?extra=")[1].split("#"),
-                    n = o(t[1]);
-                if (t = o(t[0]), !n || !t) return e;
-                n = n.split(String.fromCharCode(9));
-                for (var a, r, s = n.length; s--;) {
-                    if (r = n[s].split(String.fromCharCode(11)), a = r.splice(0, 1, t)[0], !i[a]) return e;
-                    t = i[a].apply(null, r)
-                }
-                if (t && "http" === t.substr(0, 4)) return t
-            }
-            return e
-        }
-        function o(e) {
-            if (!e || e.length % 4 == 1) return !1;
-            for (var t, i, a = 0, o = 0, r = ""; i = e.charAt(o++);) i = n.indexOf(i),
-            ~i && (t = a % 4 ? 64 * t + i : i, a++ % 4) && (r += String.fromCharCode(255 & t >> (-2 * a & 6)));
-            return r
-        }
+<?php
+  class getObjectPublicVars extends stdClass{
+    public function get($obj){
+        return get_object_vars($obj);
     }
-    var a = {};
-    vk_decryptor_main(text,a);
-    return(a.audioUnmaskSource(text));
-}
+  }
+  class functionalObject extends stdClass{
+      public function __call($closure, $args){
+          return call_user_func_array($this -> {$closure} -> bindTo($this),$args);
+      }
+      public function __toString(){
+          return call_user_func($this -> {"__toString"} -> bindTo($this));
+      }
+      public function setProperty(string $prop_name, $prop){
+          $this -> $prop_name = $prop;
+      }
+  }
+  class jString extends stdClass{
+      private $functions = [
+        'set(string $str):string'           => 'Propertly sets the value of extended string object',
+        'split(string $delimiter):array'    => 'Splits the string',
+        'reverse(void):string'              => 'Returns reversed string'
+        ];
+      private $static_methods = [
+        'fromCharCode(int $code1, ...):string' => 'Returns the char(-s) from code(-s)',
+      ];
+      private function public_vars(){
+        $tmpobj = new getObjectPublicVars();
+        return $tmpobj -> get($this);
+      }
+      private $str = '';
+      public function __toString(){
+          return $this -> str;
+      }
+      public function __debugInfo() {
+        foreach($GLOBALS as $var_name => $var_value) {
+            if ($var_value === $this) {
+                $name = '$' . $var_name;
+            }
+        }
+        $len = strlen($this -> str);
+        $str = $this -> str;
+        $func_counter = 0;
+        $class = get_class ();
+        foreach ($this -> functions as $key => $value){
+           $func_counter++;
+        }
+        echo "$name: string($class):($len)#$func_counter \"$str\"\nFunctions:";
+        foreach ($this -> functions as $key => $value){
+            echo "\n\t$name -> $key\n\t\t$value";
+        }
+        echo "\n\nStatic methods:";
+        foreach ($this -> static_methods as $key => $value){
+            echo "\n\t$class::$key\n\t\t$value";
+        }
+        echo "\n\nPublic vars:\n";
+        foreach ($this -> public_vars() as $key => $value){
+            ob_start();
+            var_dump($value);
+            $value = ob_get_clean();
+            $value = str_replace("\n  ", "\n\t\t", $value);
+            while (strpos($value, "\t\t  ") !== false){
+                $value = str_replace("\t\t  ", "\t\t\t", $value);
+            }
+            $value = str_replace("\n}", "\n\t}", $value);
+            $value = preg_replace("/=>\r?\n{1,1}\s*/", " => ", $value);
+            echo "\t$name -> $key = $value";
+        }
+        echo "\nNative type: ";
+        return [];
+      }
+      public function set(string $str){
+        $this -> str = $str;
+        return $this;
+      }
+      public function split(string $delimiter){
+		$tmp_arr = explode($delimiter,$this -> str);
+		$ret_arr = [];
+		foreach($tmp_arr as $key => $value){
+			$ret_arr[$key] = new jString();
+			$ret_arr[$key] -> set($value);
+		}
+        return $ret_arr;
+      }
+      public static function fromCharCode(){
+		$tmpstr = new jString();
+		$tmpstr -> set(array_reduce(func_get_args(),function($a,$b){$a.=chr($b);return $a;}));
+        return $tmpstr;
+      }
+      public function reverse(){
+		$tmpstr = new jString();
+		$tmpstr -> set(strrev($this -> str));
+        return $tmpstr;
+      }
+      public function length(){
+        return strlen($this -> str);
+      }
+  }
+?>
