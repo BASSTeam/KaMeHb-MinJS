@@ -21,7 +21,8 @@
 		'split(string $delimiter):array'	=> 'Splits the string',
 		'reverse(void):string'				=> 'Returns reversed string',
 		'length(void):int'					=> 'Returns string length',
-		'charAt(int $pos):string'			=> 'Returns char at position $pos, or FALSE if position is not in range length()'
+		'charAt(int $pos):string'			=> 'Returns char at position $pos, or FALSE if position is not in range length()',
+		'indexOf(string $str):int'			=> 'Returns position of the first occurrence, or -1 if not found'
 		];
 	  private $static_methods = [
 		'fromCharCode(int $code1, ...):string' => 'Returns the char(-s) from code(-s)',
@@ -103,6 +104,13 @@
 		} else {
 			return false;
 		}
+	  }
+	  public function indexOf(string $elem){
+		$tmp = strpos($this -> str, $elem);
+		if ($tmp === false){
+			$tmp = -1;
+		}
+		return $tmp;
 	  }
   }
 ?>
