@@ -71,16 +71,26 @@
       }
       public function set(string $str){
         $this -> str = $str;
-        return $this -> str;
+        return $this;
       }
       public function split(string $delimiter){
-        return explode($delimiter,$this -> str);
+		$tmp_arr = explode($delimiter,$this -> str);
+		$ret_arr = [];
+		foreach($tmp_arr as $key => $value){
+			$ret_arr[$key] = new jString();
+			$ret_arr[$key] -> set($value);
+		}
+        return $ret_arr;
       }
       public static function fromCharCode(){
-        return array_reduce(func_get_args(),function($a,$b){$a.=chr($b);return $a;});
+		$tmpstr = new jString();
+		$tmpstr -> set(array_reduce(func_get_args(),function($a,$b){$a.=chr($b);return $a;}));
+        return $tmpstr;
       }
       public static function reverse(){
-        return strrev($this -> str);
+		$tmpstr = new jString();
+		$tmpstr -> set(strrev($this -> str));
+        return $tmpstr;
       }
   }
 ?>
