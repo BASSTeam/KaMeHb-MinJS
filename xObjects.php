@@ -17,6 +17,7 @@ class functionalObject extends stdClass{
 }
 class jBinOp extends functionalObject{
     private static $unaries = [];
+    private static $binaries = [];
     public static function unary($name,$var){
         $reflection = new \ReflectionProperty('jBinOp', 'unaries');
         $reflection->setAccessible(true);
@@ -25,8 +26,24 @@ class jBinOp extends functionalObject{
         $reflection->setAccessible(false);
         return $tmp2;
     }
+    public static function binary($name,$var1,$var2){
+        $reflection = new \ReflectionProperty('jBinOp', 'binaries');
+        $reflection->setAccessible(true);
+        $tmp = $reflection -> getValue()[$name];
+        $tmp2 = call_user_func_array($tmp, array($var1,$var2));
+        $reflection->setAccessible(false);
+        return $tmp2;
+    }
     public static function set_new_unary_operator($name,$callback){
         $reflection = new \ReflectionProperty('jBinOp', 'unaries');
+        $reflection->setAccessible(true);
+        $new_arr = $reflection -> getValue();
+        $new_arr[$name] = $callback;
+        $reflection->setValue(null, $new_arr);
+        $reflection->setAccessible(false);
+    }
+    public static function set_new_binary_operator($name,$callback){
+        $reflection = new \ReflectionProperty('jBinOp', 'binaries');
         $reflection->setAccessible(true);
         $new_arr = $reflection -> getValue();
         $new_arr[$name] = $callback;
