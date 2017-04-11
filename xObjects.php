@@ -18,10 +18,13 @@ class functionalObject extends stdClass{
 class jBinOp extends functionalObject{
     private static $unaries = [];
     public static function unary($name,$var){
-        var_dump(self::unaries);
+        var_dump(self::unaries[$name]);
         return call_user_func_array("self::unaries[$name]", array($var));
     }
     public static function set_new_unary_operator($name,$callback){
+        $reflection = new \ReflectionProperty('jBinOp', "unaries[$name]");
+        $reflection->setAccessible(true);
+        $reflection->setValue(null, $callback);
         //self::unaries[$name] = $callback;
     }
 }
@@ -122,9 +125,6 @@ class jString extends stdClass{
         }
         return $tmp;
     }
-}
-function jBinOp::set_new_unary_operator($name,$callback){
-    self::unaries[$name] = $callback;
 }
 jBinOp::set_new_unary_operator('~',function($a){
     return (binary) $a;
