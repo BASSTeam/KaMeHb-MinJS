@@ -22,7 +22,7 @@ class jBinOp extends functionalObject{
         return call_user_func_array("self::unaries[$name]", array($var));
     }
     public static function set_new_unary_operator($name,$callback){
-        self::unaries[$name] = $callback;
+        //self::unaries[$name] = $callback;
     }
 }
 class jString extends stdClass{
@@ -122,6 +122,9 @@ class jString extends stdClass{
         }
         return $tmp;
     }
+}
+jBinOp::set_new_unary_operator = function($name,$callback){
+    jBinOp::unaries[$name] = $callback;
 }
 jBinOp::set_new_unary_operator('~',function($a){
     return (binary) $a;
