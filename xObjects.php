@@ -22,9 +22,12 @@ class jBinOp extends functionalObject{
         return call_user_func_array("self::unaries[$name]", array($var));
     }
     public static function set_new_unary_operator($name,$callback){
-        $reflection = new \ReflectionProperty('jBinOp', "unaries[$name]");
+        $reflection = new \ReflectionProperty('jBinOp', 'unaries');
         $reflection->setAccessible(true);
-        $reflection->setValue(null, $callback);
+        $new_arr = $reflection->getProperty('unaries');
+        $new_arr[$name] = $callback;
+        $reflection->setValue(null, $new_arr);
+        $reflection->setAccessible(false);
         //self::unaries[$name] = $callback;
     }
 }
