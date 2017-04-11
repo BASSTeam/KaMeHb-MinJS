@@ -21,8 +21,7 @@ class jBinOp extends functionalObject{
         $reflection = new \ReflectionProperty('jBinOp', 'unaries');
         $reflection->setAccessible(true);
         $tmp = $reflection -> getValue()[$name];
-        var_dump($tmp);
-        $tmp2 = call_user_func_array("tmp", array($var));
+        $tmp2 = call_user_func_array($tmp, array($var));
         $reflection->setAccessible(false);
         return $tmp2;
     }
@@ -30,7 +29,6 @@ class jBinOp extends functionalObject{
         $reflection = new \ReflectionProperty('jBinOp', 'unaries');
         $reflection->setAccessible(true);
         $new_arr = $reflection -> getValue();
-        var_dump($new_arr);
         $new_arr[$name] = $callback;
         $reflection->setValue(null, $new_arr);
         $reflection->setAccessible(false);
