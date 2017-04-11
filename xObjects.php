@@ -18,7 +18,8 @@ class functionalObject extends stdClass{
 class jBinOp extends functionalObject{
     private static $unaries = [];
     public static function unary($name,$var){
-        return self::unaries[$name]($var);
+        var_dump(self::unaries);
+        return call_user_func_array("self::unaries[$name]", array($var));
     }
     public static function set_new_unary_operator($name,$callback){
         self::unaries[$name] = $callback;
