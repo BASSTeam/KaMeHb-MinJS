@@ -20,7 +20,7 @@ class jBinOp extends functionalObject{
     public static function unary($name,$var){
         $reflection = new \ReflectionProperty('jBinOp', 'unaries');
         $reflection->setAccessible(true);
-        $tmp = $reflection -> getValue()[$name]
+        $tmp = $reflection -> getValue()[$name];
         var_dump($tmp);
         $tmp2 = call_user_func_array("tmp", array($var));
         $reflection->setAccessible(false);
