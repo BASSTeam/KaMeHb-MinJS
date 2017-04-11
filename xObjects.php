@@ -15,14 +15,20 @@
 		  $this -> $prop_name = $prop;
 	  }
   }
+	class jBinOp extends stdClass{
+		private $tmpname = '~';
+		public static function $tmpname($a){
+			return $a;
+		}
+	}
   class jString extends stdClass{
 	  private $functions = [
-		'set(string $str):string'			=> 'Propertly sets the value of extended string object',
-		'split(string $delimiter):array'	=> 'Splits the string',
-		'reverse(void):string'				=> 'Returns reversed string',
-		'length(void):int'					=> 'Returns string length',
-		'charAt(int $pos):string'			=> 'Returns char at position $pos, or FALSE if position is not in range length()',
-		'indexOf(string $str):int'			=> 'Returns position of the first occurrence, or -1 if not found'
+		'set(string $str):string'					=> 'Propertly sets the value of extended string object',
+		'split(string $delimiter):array'	        => 'Splits the string',
+		'reverse(void):string'						=> 'Returns reversed string',
+		'length(void):int'							=> 'Returns string length',
+		'charAt(int $pos):string'					=> 'Returns char at position $pos, or FALSE if position is not in range length()',
+		'indexOf(string $str):int'				    => 'Returns position of the first occurrence, or -1 if not found'
 		];
 	  private $static_methods = [
 		'fromCharCode(int $code1, ...):string' => 'Returns the char(-s) from code(-s)',
