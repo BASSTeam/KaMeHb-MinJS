@@ -16,13 +16,12 @@ class functionalObject extends stdClass{
     }
 }
 class jBinOp extends functionalObject{
-    private $unaries = [
-        '~' => function($a){
-            return (binary) $a;
-        }
-    ]
+    private static $unaries = [];
     public static function unary($name,$var){
         return $unaries[$name]($var);
+    }
+    public static function set_new_unary_operator($name,$callback){
+        $unaries[$name] = $callback;
     }
 }
 class jString extends stdClass{
@@ -123,4 +122,7 @@ class jString extends stdClass{
         return $tmp;
     }
 }
+jBinOp::set_new_unary_operator('~',function($a){
+    return (binary) $a;
+});
 ?>
