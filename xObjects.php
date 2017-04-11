@@ -118,6 +118,6 @@ class jString extends stdClass{
 $tmpname = '~';
 jBinOp::$tmpname = function($a){
 	return $a;
-}
+};
 unset($tmpname);
 ?>
