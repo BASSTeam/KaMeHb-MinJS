@@ -16,8 +16,13 @@ class functionalObject extends stdClass{
     }
 }
 class jBinOp extends functionalObject{
-    public static function ~($a){
-        return (binary) $a;
+    private $unaries = [
+        '~' => function($a){
+            return (binary) $a;
+        }
+    ]
+    public static function unary($name,$var){
+        return $unary[$name]($var);
     }
 }
 class jString extends stdClass{
