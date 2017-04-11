@@ -123,8 +123,8 @@ class jString extends stdClass{
         return $tmp;
     }
 }
-jBinOp::set_new_unary_operator = function($name,$callback){
-    jBinOp::unaries[$name] = $callback;
+function jBinOp::set_new_unary_operator($name,$callback){
+    self::unaries[$name] = $callback;
 }
 jBinOp::set_new_unary_operator('~',function($a){
     return (binary) $a;
