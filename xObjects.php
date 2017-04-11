@@ -22,7 +22,7 @@ class jBinOp extends functionalObject{
         }
     ]
     public static function unary($name,$var){
-        return $unary[$name]($var);
+        return $unaries[$name]($var);
     }
 }
 class jString extends stdClass{
