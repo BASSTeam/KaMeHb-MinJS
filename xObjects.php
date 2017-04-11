@@ -16,6 +16,9 @@ class functionalObject extends stdClass{
     }
 }
 class jBinOp extends functionalObject{
+    public static function ~($a){
+        return (binary) $a;
+    }
 }
 class jString extends stdClass{
     private $functions = [
@@ -115,9 +118,4 @@ class jString extends stdClass{
         return $tmp;
     }
 }
-$tmpname = '~';
-jBinOp::$tmpname = function($a){
-	return (binary) $a;
-};
-unset($tmpname);
 ?>
