@@ -16,12 +16,12 @@ class functionalObject extends stdClass{
     }
 }
 class jBinOp extends functionalObject{
-    private static $unaries = [];
+    public static $unaries = [];
     public static function unary($name,$var){
-        return $this::$unaries[$name]($var);
+        return jBinOp::$unaries[$name]($var);
     }
     public static function set_new_unary_operator($name,$callback){
-        $this::$unaries[$name] = $callback;
+        jBinOp::$unaries[$name] = $callback;
     }
 }
 class jString extends stdClass{
