@@ -24,11 +24,10 @@ class jBinOp extends functionalObject{
     public static function set_new_unary_operator($name,$callback){
         $reflection = new \ReflectionProperty('jBinOp', 'unaries');
         $reflection->setAccessible(true);
-        $new_arr = $reflection->getProperty('unaries');
+        $new_arr = $reflection;
         $new_arr[$name] = $callback;
         $reflection->setValue(null, $new_arr);
         $reflection->setAccessible(false);
-        //self::unaries[$name] = $callback;
     }
 }
 class jString extends stdClass{
