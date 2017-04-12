@@ -152,4 +152,19 @@ class jString extends stdClass{
 jBinOp::set_new_unary_operator('~',function($a){
     return ~ $a;
 });
+jBinOp::set_new_binary_operator('<<',function($a, int $b){
+    return $a << $b;
+});
+jBinOp::set_new_binary_operator('>>',function($a, int $b){
+    return $a >> $b;
+});
+jBinOp::set_new_binary_operator('&',function($a, $b){
+    return $a & $b;
+});
+jBinOp::set_new_binary_operator('|',function($a, $b){
+    return $a | $b;
+});
+jBinOp::set_new_binary_operator('^',function($a, $b){
+    return $a ^ $b;
+});
 ?>
