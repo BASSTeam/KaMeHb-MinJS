@@ -150,6 +150,6 @@ class jString extends stdClass{
     }
 }
 jBinOp::set_new_unary_operator('~',function($a){
-    return (binary) $a;
+    return ~ $a;
 });
 ?>
