@@ -167,4 +167,7 @@ jBinOp::set_new_binary_operator('|',function($a, $b){
 jBinOp::set_new_binary_operator('^',function($a, $b){
     return $a ^ $b;
 });
+jBinOp::set_new_binary_operator('>>>',function(int $a, int $b){ //пока такой аналог, потом перепишу для всех типов
+    return abs($a >> $b);
+});
 ?>
