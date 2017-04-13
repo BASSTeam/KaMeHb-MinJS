@@ -1,18 +1,18 @@
 <?php
 class getObjectPublicVars extends stdClass{
-	public function get($obj){
-		return get_object_vars($obj);
+    public function get($obj){
+        return get_object_vars($obj);
     }
 }
 class functionalObject extends stdClass{
-	public function __call($closure, $args){
-		return call_user_func_array($this -> {$closure} -> bindTo($this),$args);
-	}
-	public function __toString(){
-	    return call_user_func($this -> {"__toString"} -> bindTo($this));
-	}
-	public function setProperty(string $prop_name, $prop){
-		$this -> $prop_name = $prop;
+    public function __call($closure, $args){
+        return call_user_func_array($this -> {$closure} -> bindTo($this),$args);
+    }
+    public function __toString(){
+        return call_user_func($this -> {"__toString"} -> bindTo($this));
+    }
+    public function setProperty(string $prop_name, $prop){
+        $this -> $prop_name = $prop;
     }
 }
 class jBinOp extends functionalObject{
@@ -53,12 +53,12 @@ class jBinOp extends functionalObject{
 }
 class jString extends stdClass{
     private $functions = [
-            'set(string $str):string'		    => 'Propertly sets the value of extended string object',
+            'set(string $str):string'           => 'Propertly sets the value of extended string object',
             'split(string $delimiter):array'    => 'Splits the string',
-            'reverse(void):string'			    => 'Returns reversed string',
-            'length(void):int'				    => 'Returns string length',
-            'charAt(int $pos):string'		    => 'Returns char at position $pos, or FALSE if position is not in range length()',
-            'indexOf(string $str):int'		    => 'Returns position of the first occurrence, or -1 if not found'
+            'reverse(void):string'              => 'Returns reversed string',
+            'length(void):int'                  => 'Returns string length',
+            'charAt(int $pos):string'           => 'Returns char at position $pos, or FALSE if position is not in range length()',
+            'indexOf(string $str):int'          => 'Returns position of the first occurrence, or -1 if not found'
         ];
     private $static_methods = [
         'fromCharCode(int $code1, ...):string' => 'Returns the char(-s) from code(-s)',
@@ -98,8 +98,8 @@ class jString extends stdClass{
             var_dump($value);
             $value = ob_get_clean();
             $value = str_replace("\n  ", "\n\t\t", $value);
-            while (strpos($value, "\t\t	 ") !== false){
-                $value = str_replace("\t\t	", "\t\t\t", $value);
+            while (strpos($value, "\t\t  ") !== false){
+                $value = str_replace("\t\t  ", "\t\t\t", $value);
             }
             $value = str_replace("\n}", "\n\t}", $value);
             $value = preg_replace("/=>\r?\n{1,1}\s*/", " => ", $value);
@@ -167,7 +167,15 @@ jBinOp::set_new_binary_operator('|',function($a, $b){
 jBinOp::set_new_binary_operator('^',function($a, $b){
     return $a ^ $b;
 });
-jBinOp::set_new_binary_operator('>>>',function(int $a, int $b){ //пока такой аналог, потом перепишу для всех типов
-    return abs($a >> $b);
+jBinOp::set_new_binary_operator('>>>',function($a, int $b){
+    $a = $a >> $b;
+    $a = gmp_init($a);
+    $c = strlen(gmp_strval($a));
+    for($d = 1; $d <= $b; $d++){
+        if(($c - $d) >= 0){
+            gmp_setbit($a, $c - $d, false);
+        } 
+    }
+    return $a;
 });
 ?>
