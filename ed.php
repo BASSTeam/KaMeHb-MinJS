@@ -17,7 +17,7 @@
             */
             $fname = (isset($_REQUEST['fname'])) ? $_SERVER['DOCUMENT_ROOT'] . $_REQUEST['fname'] : $fname;
 
-            
+
             if(isset($_POST['text'])){
                 file_put_contents($fname,$_POST['text']);
                 echo "Text was written successfully to file <strong>$fname</strong>";
@@ -33,6 +33,7 @@
             <textarea style="display: block; width: 100%; height: 100%;" name="text" autocomplete="false" autofocus><?php
                 echo file_get_contents($fname);
             ?></textarea>
+            <input type="hidden" name="fname" value="<?php echo $fname; ?>">
             <input style="position: absolute; top: 3px; right: 3px;" value="Save" type="submit">
         </form>
         <?php
