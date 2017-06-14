@@ -1,12 +1,25 @@
 /*
+    Name:       FileSystem module for native browser js
+    Purpose:    Adds some new functions for file work
+    Notice:
+                    Functions list:
+                        fs.getCurrentFName([onlyName]) - returns a current js file name
+                        fs.getCurrentDir() - returns current working directory location
+                        fs.changeDir(dir) - allows to change working directory
+                        fs.cd(dir) - shortcut for fs.changeDir(dir)
+                        fs.splitDirName(str) - returns an array of directory and filename
+                        fs.splitLink(link) - splits link for host, port, query, path and protocol pieces and returns it like an standard object
+                        require(link) - allows you to require a script like in php and returns true if successfully, or false if not
+
     Author:     Влад KaMeHb Марченко
-    Version:    1.0-f
+    Version:    1.1-b
+    Original:   https://raw.githubusercontent.com/BASSTeam/KaMeHb-MinJS/master/fs.js
     ToDo:       --
 */
 document.addEventListener("DOMContentLoaded", function(){
     var currentDir = null;
     fs = {
-        'getCurrentFName' : function(onlyName){
+        'getCurrentFName' : function(onlyName = false){
             var fname = null;
             try {
                 eval('+');
@@ -26,7 +39,11 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         },
         'cd' : function(dir){
-            currentDir = dir;
+            if(fs.splitDirName(dir)[1] == '')
+                currentDir = dir;
+            else
+                currentDir = dir + '/';
+            return currentDir;
         },
         'splitDirName' : function(str){
             var result = ['',''], tmp = str.split('/');
@@ -36,8 +53,22 @@ document.addEventListener("DOMContentLoaded", function(){
                 result[0] = '/';
             }
             return result;
+        },
+        'splitLink' : function(str){
+            var link = document.createElement('a');
+            link.setAttribute('href', str);
+            var ret = {
+                'host'      : link.hostname,
+                'port'      : link.port,
+                'query'     : link.search.slice(1),
+                'path'      : link.pathname,
+                'protocol'  : link.protocol.slice(0,-1)
+            };
+            link = null;
+            return ret;
         }
     };
+    fs.changeDir = fs.cd;
     function getXmlHttp(){
         var xmlhttp;
         try{
@@ -54,7 +85,33 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         return xmlhttp;
     }
+    function absolutePath(fname){
+        if (/^\/.*/.test(fname)){
+            fname = fs.splitLink(fs.getCurrentDir()).protocol + '://' + fs.splitLink(fs.getCurrentDir()).host + fname;
+        }
+        if (/^\.\.?\/.*/.test(fname)){
+            if (fs.getCurrentDir() == fs.splitLink(fs.getCurrentDir()).protocol + '://' + fs.splitLink(fs.getCurrentDir()).host + '/' && /^\.\.\/.*/.test(fname)) fname = fname.slice(1);
+            function absolute(relative){
+                var base = fs.getCurrentDir(),
+                    stack = base.split("/"),
+                    parts = relative.split("/");
+                stack.pop();
+                for (var i=0; i<parts.length; i++){
+                    if (parts[i] == ".")
+                        continue;
+                    if (parts[i] == "..")
+                        stack.pop();
+                    else
+                        stack.push(parts[i]);
+                }
+                return stack.join("/");
+            }
+            fname = absolute(fname);
+        }
+        return fname;
+    }
     require = function(fname, returnResult = false){
+        fname = absolutePath(fname);
         if(document.querySelector('script[_data-url="' + fname + '"]') == null){
             var xhr = getXmlHttp();
             xhr.open('GET', fname, false);
