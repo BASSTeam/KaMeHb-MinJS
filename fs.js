@@ -12,7 +12,7 @@
                         require(link) - allows you to require a script like in php and returns true if successfully, or false if not
 
     Author:     Влад KaMeHb Марченко
-    Version:    1.1-b
+    Version:    1.1-f
     Original:   https://raw.githubusercontent.com/BASSTeam/KaMeHb-MinJS/master/fs.js
     ToDo:       --
 */
@@ -20,11 +20,19 @@ document.addEventListener("DOMContentLoaded", function(){
     var currentDir = null;
     fs = {
         'getCurrentFName' : function(onlyName = false){
+            function native(str){
+                var tmp = str.split('at ');
+                tmp = tmp[tmp.length - 1].split('(')[1];
+                if (tmp == undefined) return false; else return tmp.split(')')[0].match(/(.*):\d*:\d*/)[1];
+            }
             var fname = null;
             try {
                 eval('+');
             } catch(e){
-                fname = e.stack.split('.getCurrentFName (')[1].match(/(.*):\d*:\d*/)[1];
+                fname = native(e.stack);
+                if (!fname){
+                    fname = location.href;
+                }
                 if(onlyName){
                     fname = fs.splitDirName(fname)[1];
                 }
